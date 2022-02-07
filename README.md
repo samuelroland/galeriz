@@ -4,14 +4,24 @@
 ### Skills
 You need to know how to develop with Laravel and Livewire, AlpineJS and TailwindCSS. The first 2 are the most important, you can learn the following ones on the go.
 
-## Setup
-
-### Environment setup
+### Tools
 You need:
 <!-- check php and mysql versions choices -->
 - PHP v8+
 - MySQL v8+
+- Git v2+
+- An IDE for PHP
+- **TODO**
 
+<!-- IDE ??-->
+<!-- Extensions ??-->
+
+## Setup
+
+### Environment setup
+
+Configure your `php.ini` file to enable the following extensions:
+- **TODO**
 
 ### Project setup
 1. Clone the repository and go inside:
