@@ -1,5 +1,7 @@
 # Pré-TPI Samuel Roland
 
+[Documentation is in `docs/docs.md` for now](/docs/docs.md)
+
 ## Prerequisites
 ### Skills
 You need to know how to develop with Laravel and Livewire, AlpineJS and TailwindCSS. The first 2 are the most important, you can learn the following ones on the go.
