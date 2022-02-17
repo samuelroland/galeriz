@@ -1,6 +1,9 @@
 # Pré-TPI Samuel Roland
 
-[Documentation is in `docs/docs.md` for now](/docs/docs.md)
+## Documentations
+- **[Project documentation](/docs/docs.md)**
+- **[Work Diary for every day of work](/docs/WorkDiary.md)**
+
 
 ## Prerequisites
 ### Skills
