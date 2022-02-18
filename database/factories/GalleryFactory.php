@@ -14,7 +14,8 @@ class GalleryFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title' => $this->faker->text(25),
+            'description' => $this->faker->text(1000)
         ];
     }
 }
