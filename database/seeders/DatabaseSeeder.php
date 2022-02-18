@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
+use App\Models\Gallery;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +15,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $users = User::factory(10)->create();
+
+        $galleries = Gallery::factory(30)->create(fn () => ['user_id' => $users->random()->id]);    //Create 30 galleries made by a random user
     }
 }
