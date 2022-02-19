@@ -1,9 +1,20 @@
 ## Documentation
 
+## Introduction
+TODO
+
+### Initial planning
+The planning consist of 7 sprints where every sprint is 1 week long. (I'm not using Scrum, but I just use the concept of sprints as parts of the project).  
+The projects planning and tasks management is done with Github Issues and Github Projects. [This planning is also available here](https://github.com/samuelroland/galeriz/projects).
+![Planning](./img/planning.png)
+
 ### MCD
 ![MCD](MCD.png)
+### MLD
+coming soon...
+![MLD](MLD.png)
 
-### Available pages:
+## Available pages
 
 - All galleries: under menu section called `Panorama`
 - Gallery details: all pictures in the gallery and the name of the author
