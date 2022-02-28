@@ -11,7 +11,6 @@ The projects planning and tasks management is done with Github Issues and Github
 ### MCD
 ![MCD](MCD.png)
 ### MLD
-coming soon...
 ![MLD](MLD.png)
 
 ## Available pages
