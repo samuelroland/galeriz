@@ -29,8 +29,8 @@ class ImageFactory extends Factory
         //After the creation we have the id and we can overwrite the path like "images/3.png" and create the file on the disk
         return $this->afterCreating(function (Image $image) {
             $image->path = "images/" . $image->id . ".png";
-            Storage::delete($image->path);  //delete in case it exists
-            Storage::copy('fake-image.png', $image->path);
+            Storage::disk('public')->delete($image->path);  //delete in case it exists
+            Storage::copy('fake-image.png',  "public/" . $image->path);
             $image->save();
         });
     }

@@ -33,9 +33,8 @@ class GalleryTest extends TestCase
 
         $galleries->where('cover_id', '!=', null)->each(
             function ($gallery) use ($visitor) {
-
                 $visitor->assertSee($gallery->cover->path);
-                $this->assertFileExists(base_path('storage/app') . "/" . $gallery->cover->path);
+                $this->assertFileExists(base_path('storage/app/public') . "/" . $gallery->cover->path);
             }
         );
     }
