@@ -22,12 +22,8 @@ class GalleryTest extends TestCase
 
         $visitor = $this->get('/galleries');
 
-        $galleries->each(
-            function ($gallery) use ($visitor) {
-                $visitor->assertSee($gallery->title);
-                $visitor->assertDontSee($gallery->description);
-            }
-        );
+        $visitor->assertSeeText($galleries->pluck('title')->toArray());
+        $visitor->assertDontSeeText($galleries->pluck('description')->toArray());
     }
 
     public function test_all_cover_images_are_displayed_and_exist()
