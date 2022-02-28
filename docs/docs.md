@@ -23,13 +23,19 @@ The projects planning and tasks management is done with Github Issues and Github
 
 ## Models
 ### Layout
-![Layout model](Layout.png)
-
-### All galleries
-![Layout model](Galleries.png)
-
-### Gallery details
-![Layout model](Gallery.png)
+![Layout model](models/Layout.png)
 
 ### Login
-![Layout model](Gallery.png)
+![Login](models/Login.png)
+
+### Register
+![Register](models/Register.png)
+
+### All galleries
+![salut](models/All_galleries.png)
+
+### Create a gallery
+![Create a gallery](models/Create_a_gallery.png)
+
+### Gallery details
+![Gallery details](models/Gallery_details.png)
