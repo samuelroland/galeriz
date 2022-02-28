@@ -35,7 +35,15 @@ class GalleryTest extends TestCase
             function ($gallery) use ($visitor) {
                 $visitor->assertSee($gallery->cover->path);
                 $this->assertFileExists(base_path('storage/app/public') . "/" . $gallery->cover->path);
+                //  $this->get("storage/" . $gallery->cover->path)->assertStatus(200);
             }
         );
     }
+
+    // public function test_galleries_have_a_default_cover()
+    // {
+    //     $galleries = Gallery::all();
+    //     $visitor = $this->get('/galleries');
+    //     $this->assertEquals($galleries->where('cover_id', null)->count(), substr_count("gallery-cover.//png", $visitor->getContent()));
+    // }
 }
