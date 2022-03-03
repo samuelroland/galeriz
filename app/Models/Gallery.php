@@ -10,11 +10,11 @@ class Gallery extends Model
     use HasFactory;
 
     public function images()
-    {   
+    {
         return $this->hasMany(Image::class);
     }
 
-    public function users()
+    public function followers()
     {
         return $this->belongsToMany(User::class);
     }
