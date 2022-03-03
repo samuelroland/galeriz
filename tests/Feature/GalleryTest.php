@@ -26,7 +26,7 @@ class GalleryTest extends TestCase
         $visitor->assertDontSeeText($galleries->pluck('description')->toArray());
     }
 
-    public function test_all_cover_images_are_displayed_and_exist()
+    public function test_all_cover_images_are_displayed()
     {
         $galleries = Gallery::all();
         $visitor = $this->get('/galleries');
@@ -34,8 +34,6 @@ class GalleryTest extends TestCase
         $galleries->where('cover_id', '!=', null)->each(
             function ($gallery) use ($visitor) {
                 $visitor->assertSee($gallery->cover->path);
-                $this->assertFileExists(base_path('storage/app/public') . "/" . $gallery->cover->path);
-                //  $this->get("storage/" . $gallery->cover->path)->assertStatus(200);
             }
         );
     }
