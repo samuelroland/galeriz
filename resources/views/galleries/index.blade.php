@@ -1,4 +1,4 @@
-<x-layout>
+<x-guest-layout>
     <div class="my-3">
         <h1 class="text-3xl">Panorama</h1>
         <p>Panorama of all galleries published on Galeriz.</p>
@@ -18,4 +18,4 @@
         @endforeach
     </div>
 
-</x-layout>
+</x-guest-layout>
