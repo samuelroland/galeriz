@@ -1,4 +1,6 @@
 # Pré-TPI Samuel Roland
+**PHPUnit tests:**  
+[![PHPUnit tests](https://github.com/samuelroland/galeriz/actions/workflows/laravel.yml/badge.svg?branch=main)](https://github.com/samuelroland/galeriz/actions/workflows/laravel.yml)
 
 ## Documentations
 - **[Project documentation](/docs/docs.md)**
