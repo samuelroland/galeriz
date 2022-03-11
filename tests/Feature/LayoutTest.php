@@ -16,8 +16,11 @@ class LayoutTest extends TestCase
         $response = $this->get(route('panorama'));
 
         $response->assertSee("Panorama");
-        $response->assertDontSee("My galleries");
-        $response->assertDontSee("Followed galleries");
+        $response->assertDontSeeText("My galleries");
+        $response->assertDontSeeText("Followed galleries");
+        $response->assertDontSeeText("New gallery");
+        $response->assertDontSeeText("My profile");
+        $response->assertDontSeeText("Settings");
     }
 
     public function test_layout_menu_is_correct_when_user_is_logged()
@@ -25,8 +28,11 @@ class LayoutTest extends TestCase
         $user = User::factory()->create();
         $response = $this->actingAs($user)->get(route('panorama'));
 
-        $response->assertSee("Panorama");
-        $response->assertSee("My galleries");
-        $response->assertSee("Followed galleries");
+        $response->assertSeeText("Panorama");
+        $response->assertSeeText("My galleries");
+        $response->assertSeeText("Followed galleries");
+        $response->assertSeeText("New gallery");
+        $response->assertSeeText("My profile");
+        $response->assertSeeText("Settings");
     }
 }

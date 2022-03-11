@@ -97,7 +97,6 @@
                 @endif
 
                 @if (Auth::user() != null)
-                    <!-- Settings Dropdown -->
                     <div class="ml-3 relative">
                         <x-jet-dropdown align="right" width="48">
                             <x-slot name="trigger">
@@ -126,14 +125,20 @@
                             </x-slot>
 
                             <x-slot name="content">
-                                <!-- Account Management -->
-                                <div class="block px-4 py-2 text-xs text-gray-400">
-                                    {{ __('Manage Account') }}
-                                </div>
+
+                                @if (Auth::user() != null)
+                                <x-jet-dropdown-link href="{{ route('profile') }}" :active="false">
+                                    My profile
+                                </x-jet-dropdown-link>
+
+                                <x-jet-dropdown-link href="{{ route('galleries.new') }}">
+                                    New gallery
+                                </x-jet-dropdown-link>
 
                                 <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                                    {{ __('Profile') }}
+                                    Settings
                                 </x-jet-dropdown-link>
+                                @endif
 
                                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                     <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">
@@ -213,9 +218,19 @@
             <div class="mt-3 space-y-1">
                 @if (Auth::user() != null)
                     <!-- Account Management -->
+                    <x-jet-responsive-nav-link href="{{ route('profile') }}"
+                        :active="request()->routeIs('profile')">
+                        My profile
+                    </x-jet-responsive-nav-link>
+
+                     <x-jet-responsive-nav-link href="{{ route('galleries.new') }}"
+                        :active="request()->routeIs('galleries.new')">
+                        New gallery
+                    </x-jet-responsive-nav-link>
+
                     <x-jet-responsive-nav-link href="{{ route('profile.show') }}"
                         :active="request()->routeIs('profile.show')">
-                        {{ __('Profile') }}
+                        Settings
                     </x-jet-responsive-nav-link>
 
                     @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
