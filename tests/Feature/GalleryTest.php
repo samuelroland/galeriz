@@ -34,7 +34,7 @@ class GalleryTest extends TestCase
 
     public function test_gallery_details_page_exists()
     {
-        $this->get(route('gallery', ['id' => 1]))->assertStatus(200);
+        $this->get(route('gallery', ['gallery' => 1]))->assertStatus(200);
     }
 
     //All galleries tests (Panorama page)
@@ -69,12 +69,12 @@ class GalleryTest extends TestCase
 
 
     //Gallery details tests
-    public function test_gallery_details_are_displayed()
+    public function test_gallery_details_page_is_displayed()
     {
         $user = User::factory()->create();
         $gallery = Gallery::factory()->create(['user_id' => $user->id]);
 
-        $response = $this->get(route('gallery', ['id' => $gallery->id]));
+        $response = $this->get(route('gallery', ['gallery' => $gallery->id]));
 
         $response->assertSeeText([$gallery->title, $gallery->description, $gallery->author->name]);
 

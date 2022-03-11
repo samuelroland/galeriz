@@ -33,7 +33,7 @@ Route::get('/followed', function () {
     return view('galleries.index', ['galleries' => $galleries]);
 })->name("followedGalleries");
 
-Route::get('/galleries/{id}', function (Gallery $gallery) {
+Route::get('/galleries/{gallery}', function (Gallery $gallery) {
     return view('galleries.show', ['gallery' => $gallery]);
 })->name("gallery");
 
