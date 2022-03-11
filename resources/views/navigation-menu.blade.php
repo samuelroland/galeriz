@@ -12,7 +12,7 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('panorama') }}" :active="request()->routeIs('dashboard')">
+                    <x-jet-nav-link href="{{ route('panorama') }}" :active="request()->routeIs('panorama')">
                         Panorama
                     </x-jet-nav-link>
                     @if (Auth::user() != null)
