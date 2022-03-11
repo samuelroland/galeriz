@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('panorama') }}">
                         <x-jet-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
@@ -177,9 +177,18 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+            <x-jet-responsive-nav-link href="{{ route('panorama') }}" :active="request()->routeIs('panorama')">
+                Panorama
             </x-jet-responsive-nav-link>
+            @if (Auth::user() != null)
+                <x-jet-responsive-nav-link href="{{ route('my') }}" :active="request()->routeIs('my')">
+                    My galleries
+                </x-jet-responsive-nav-link>
+                <x-jet-responsive-nav-link href="{{ route('followedGalleries') }}"
+                    :active="request()->routeIs('followedGalleries')">
+                    Followed galleries
+                </x-jet-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
