@@ -33,8 +33,17 @@ Route::get('/followed', function () {
     return view('galleries.index', ['galleries' => $galleries]);
 })->name("followedGalleries");
 
+Route::get('/galleries/new', function () {
+    return view('galleries.create');
+})->name("galleries.new");
+
 Route::get('/galleries/{gallery}', function (Gallery $gallery) {
     return view('galleries.show', ['gallery' => $gallery]);
 })->name("gallery");
 
+
 Route::redirect('/galleries', '/');
+
+Route::get('/profile', function () {
+    return view('profile');
+})->name("profile");

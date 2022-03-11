@@ -38,6 +38,11 @@ class GalleryTest extends TestCase
         $this->get(route('gallery', ['gallery' => 1]))->assertStatus(200);
     }
 
+    public function test_create_a_gallery_page_exists()
+    {
+        $this->get(route('galleries.new'))->assertStatus(200);
+    }
+
     //All galleries tests (Panorama page)
     public function test_all_galleries_are_visible()
     {
@@ -118,4 +123,7 @@ class GalleryTest extends TestCase
 
         $response->assertSee("image-not-found.png");
     }
+
+    //Tests for Create a gallery page
+
 }
