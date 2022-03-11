@@ -49,6 +49,11 @@ class GalleryTest extends TestCase
     //     $this->assertEquals($galleries->where('cover_id', null)->count(), substr_count("gallery-cover.//png", $visitor->getContent()));
     // }
 
+    public function test_gallery_details_page_without_id_redirects_to_panorama()
+    {
+        $this->get('/galleries')->assertRedirect(route('panorama'));
+    }
+
     public function test_my_galleries_page_exists()
     {
         $this->get(route('my'))->assertStatus(200);

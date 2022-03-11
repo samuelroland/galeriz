@@ -36,3 +36,5 @@ Route::get('/followed', function () {
 Route::get('/galleries/{id}', function (Gallery $gallery) {
     return view('galleries.show', ['gallery' => $gallery]);
 })->name("gallery");
+
+Route::redirect('/galleries', '/');
