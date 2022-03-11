@@ -14,15 +14,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::get('/galleries', function () {
+Route::get('/', function () {
     $galleries = Gallery::all();
     return view('galleries.index', ['galleries' => $galleries]);
-});
+})->name("panorama");
+
+Route::get('/my', function () {
+    $galleries = Gallery::all();
+    return view('galleries.index', ['galleries' => $galleries]);
+})->name("my");
+
+Route::get('/followed', function () {
+    $galleries = Gallery::all();
+    return view('galleries.index', ['galleries' => $galleries]);
+})->name("my");
+
+Route::get('/galleries/{id}', function (Gallery $gallery) {
+    return view('galleries.show', ['gallery' => $gallery]);
+})->name("gallery");
