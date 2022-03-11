@@ -23,4 +23,9 @@ class Gallery extends Model
     {
         return $this->belongsTo(Image::class, 'cover_id');
     }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

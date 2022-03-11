@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use App\Models\User;
 use App\Models\Gallery;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -11,8 +12,9 @@ class GalleryTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $seed = true;
+    protected $seed = true; //seed the database at each run
 
+    //Gallery pages tests
     public function test_galleries_page_exists()
     {
         $response = $this->get(route('panorama'));
@@ -20,6 +22,22 @@ class GalleryTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function test_gallery_details_page_without_id_redirects_to_panorama()
+    {
+        $this->get('/galleries')->assertRedirect(route('panorama'));
+    }
+
+    public function test_my_galleries_page_exists()
+    {
+        $this->get(route('my'))->assertStatus(200);
+    }
+
+    public function test_gallery_details_page_exists()
+    {
+        $this->get(route('gallery', ['id' => 1]))->assertStatus(200);
+    }
+
+    //All galleries tests (Panorama page)
     public function test_all_galleries_are_visible()
     {
         $galleries = Gallery::all();
@@ -49,18 +67,17 @@ class GalleryTest extends TestCase
     //     $this->assertEquals($galleries->where('cover_id', null)->count(), substr_count("gallery-cover.//png", $visitor->getContent()));
     // }
 
-    public function test_gallery_details_page_without_id_redirects_to_panorama()
-    {
-        $this->get('/galleries')->assertRedirect(route('panorama'));
-    }
 
-    public function test_my_galleries_page_exists()
+    //Gallery details tests
+    public function test_gallery_details_are_displayed()
     {
-        $this->get(route('my'))->assertStatus(200);
-    }
+        $user = User::factory()->create();
+        $gallery = Gallery::factory()->create(['user_id' => $user->id]);
 
-    public function test_gallery_details_page_exists()
-    {
-        $this->get(route('gallery', ['id' => 1]))->assertStatus(200);
+        $response = $this->get(route('gallery', ['id' => $gallery->id]));
+
+        $response->assertSeeText([$gallery->title, $gallery->description, $gallery->author->name]);
+
+        //todo: gallery cover
     }
 }
