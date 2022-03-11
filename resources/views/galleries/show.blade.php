@@ -15,12 +15,12 @@
 
         <div class="flex flex-wrap mt-4 ">
             @foreach ($gallery->images as $image)
-                <div class="w-44 hover:bg-blue-100 overflow-hidden border border-gray-400 rounded-md m-1 p-1 pb-0">
-                    <img class="w-44 h-44 block rounded-sm" src="/{{ $image->path ?? 'default-cover.png' }}" alt="">
-                    <div class="whitespace-nowrap overflow-hidden text-ellipsis">
-                        {{ $image->title }}
-                    </div>
+            <div class="w-44 overflow-hidden border border-gray-400 rounded-md m-1 p-1 pb-0">
+                <img class="w-44 h-44 block rounded-sm" src="/{{ $image->safePath ?? 'default-cover.png' }}" alt="">
+                <div class="whitespace-nowrap overflow-hidden text-ellipsis">
+                    {{ $image->title }}
                 </div>
+            </div>
             @endforeach
         </div>
     </div>
