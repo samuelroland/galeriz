@@ -21,7 +21,7 @@ jobs:
     - name: Install Dependencies
       run: |
         composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-        npm install   
+        npm install
     - name: Generate key
       run: php artisan key:generate
     - name: Generate JS and CSS files
@@ -32,8 +32,11 @@ jobs:
       run: |
         mkdir -p database
         touch database/database.sqlite
-    - name: Execute tests (Unit and Feature tests) via PHPUnit
+    - name: Execute tests (without Jetstream tests) via PHPUnit
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
-      run: vendor/bin/phpunit
+      run: |
+        php artisan migrate --seed
+        php artisan test tests/Feature
+        php artisan test tests/Unit
