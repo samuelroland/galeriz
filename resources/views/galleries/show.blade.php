@@ -12,12 +12,11 @@
         </h2>
         <p class="italic text-sm">{{ $gallery->description }}</p>
 
-
         <div class="flex flex-wrap mt-4 ">
             @foreach ($gallery->images as $image)
-            <div class="w-44 overflow-hidden border border-gray-400 rounded-md m-1 p-1 pb-0">
-                <img class="w-44 h-44 block rounded-sm" src="/{{ $image->safePath ?? 'default-cover.png' }}" alt="">
-                <div class="whitespace-nowrap overflow-hidden text-ellipsis">
+            <div class="overflow-hidden border border-gray-700 rounded-md m-1 pb-0">
+                <img class="w-full h-72 object-cover block " src="/{{ $image->safePath ?? 'default-cover.png' }}" alt="">
+                <div class="whitespace-nowrap overflow-hidden text-ellipsis max-w-xs mx-2">
                     {{ $image->title }}
                 </div>
             </div>
