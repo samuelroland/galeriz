@@ -40,7 +40,7 @@ class GalleryTest extends TestCase
 
     public function test_create_a_gallery_page_exists()
     {
-        $this->get(route('galleries.new'))->assertStatus(200);
+        $this->actingAs(User::first())->get(route('galleries.new'))->assertStatus(200);
     }
 
     //All galleries tests (Panorama page)
@@ -140,14 +140,14 @@ class GalleryTest extends TestCase
 
     public function test_gallery_creation_endpoint_creates_a_gallery()
     {
+        $author = User::factory()->create();
+
         $data = [
             'title' => 'Great gallery',
             'description' => 'A great gallery about my holidays.'
         ];
 
-        $response = $this->post(route('galleries.new'), $data);
-
-        $response->assertStatus(200);
+        $response = $this->actingAs($author)->post(route('galleries.new'), $data);
 
         $this->assertDatabaseHas('galleries', $data);
     }
