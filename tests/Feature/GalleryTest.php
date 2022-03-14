@@ -30,12 +30,14 @@ class GalleryTest extends TestCase
 
     public function test_my_galleries_page_exists()
     {
-        $this->get(route('my'))->assertStatus(200);
+        $author = User::first();
+
+        $this->actingAs($author)->get(route('my'))->assertStatus(200);
     }
 
     public function test_gallery_details_page_exists()
     {
-        $this->get(route('gallery', ['gallery' => 1]))->assertStatus(200);
+        $this->get(route('gallery', ['gallery' => Gallery::all()->random()->id]))->assertStatus(200);
     }
 
     public function test_create_a_gallery_page_exists()
@@ -154,6 +156,10 @@ class GalleryTest extends TestCase
     }
 
     //Test for My galleries page
+    public function test_my_galleries_page_is_guarded()
+    {
+        $this->get(route('my'))->assertStatus(302);
+    }
 
     public function test_my_galleries_are_all_displayed()
     {

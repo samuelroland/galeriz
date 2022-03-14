@@ -10,7 +10,7 @@ Route::get('/', function () {
     return view('galleries.index', ['galleries' => $galleries]);
 })->name("panorama");
 
-Route::get('/my', [GalleryController::class, 'myGalleries'])->name("my");
+Route::middleware(['auth:sanctum'])->get('/my', [GalleryController::class, 'myGalleries'])->name("my");
 
 Route::get('/followed', function () {
     $galleries = Gallery::all();
