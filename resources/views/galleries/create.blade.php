@@ -4,7 +4,12 @@
     </div>
     <hr>
     <div>
-        form
+        <form method="post" action="{{ route('galleries.new') }}">
+            @csrf
+            <x-field type="text" label="Title" name="title" />
+            <x-field type="textarea" label="Description" name="description" />
+            <button class="mt-2 btn" type="submit">Create</button>
+        </form>
     </div>
 
 </x-app-layout>

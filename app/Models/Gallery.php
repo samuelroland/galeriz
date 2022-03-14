@@ -9,6 +9,8 @@ class Gallery extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['title', 'description', 'user_id'];
+
     public function images()
     {
         return $this->hasMany(Image::class);
