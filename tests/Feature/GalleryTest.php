@@ -150,5 +150,18 @@ class GalleryTest extends TestCase
         $response = $this->actingAs($author)->post(route('galleries.new'), $data);
 
         $this->assertDatabaseHas('galleries', $data);
+        $response->assertRedirect(route('gallery', ['gallery' => $author->galleries()->first()->id]));
+    }
+
+    //Test for My galleries page
+
+    public function test_my_galleries_are_all_displayed()
+    {
+        $user = User::first();
+        $galleries = $user->galleries;
+
+        $response = $this->actingAs($user)->get(route('my'));
+
+        $this->assertEquals(substr_count($response->getContent(), '/galleries/'), $galleries->count());
     }
 }
