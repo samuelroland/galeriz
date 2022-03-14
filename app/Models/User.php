@@ -61,4 +61,9 @@ class User extends Authenticatable
     protected $firstname;
 
     protected $lastname;
+
+    public function galleries()
+    {
+        return $this->hasMany(Gallery::class);
+    }
 }
