@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.btn {
+    @apply bg-lightblue  px-2 py-1 rounded-sm
+}
+/* hover:bg-bluedark2 */
