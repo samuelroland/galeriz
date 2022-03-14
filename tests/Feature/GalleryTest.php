@@ -170,4 +170,14 @@ class GalleryTest extends TestCase
 
         $this->assertEquals(substr_count($response->getContent(), 'single-gallery'), $galleries->count());
     }
+
+    public function test_my_galleries_page_has_title_and_description()
+    {
+        $user = User::first();
+
+        $response = $this->actingAs($user)->get(route('my'));
+
+        $response->assertSee("My galleries");
+        $response->assertSee("Here are all the galleries you published on Galeriz.");
+    }
 }

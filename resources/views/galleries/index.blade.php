@@ -1,7 +1,25 @@
+@php
+switch(Route::currentRouteName()) {
+case 'panorama':
+$title = 'Panorama';
+$description = 'Panorama of all galleries published on Galeriz.';
+break;
+case 'my':
+$title = 'My galleries';
+$description = 'Here are all the galleries you published on Galeriz.';
+break;
+default:
+$title = 'No title';
+$description = 'no description';
+}
+
+@endphp
 <x-app-layout>
     <div class="my-3">
-        <h1 class="text-3xl">Panorama</h1>
-        <p>Panorama of all galleries published on Galeriz.</p>
+        <h1 class="text-3xl">
+            {{ $title }}
+        </h1>
+        <p>{{ $description }}</p>
     </div>
     <hr>
     <div class="flex flex-wrap mt-4 ">
