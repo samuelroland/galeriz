@@ -6,6 +6,7 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\Image;
 use App\Models\Gallery;
+use Illuminate\Support\Str;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -153,6 +154,35 @@ class GalleryTest extends TestCase
 
         $this->assertDatabaseHas('galleries', $data);
         $response->assertRedirect(route('gallery', ['gallery' => $author->galleries()->first()->id]));
+    }
+
+    public function test_gallery_creation_validates_data_and_display_errors()
+    {
+        $author = User::factory()->create();
+
+        //Values must be required (and not empty when trimmed)
+        $data = [
+            'title' => '  ',
+            'description' => ''
+        ];
+
+        $response = $this->actingAs($author)->post(route('galleries.new'), $data);
+
+        $response->assertSessionHasErrors(['description', 'title']);
+        $response->assertSee("title field is required");
+        $response->assertSee("description field is required");
+
+        //Values length must be checked
+        $data = [
+            'title' => Str::random(40),
+            'description' => Str::random(1100)
+        ];
+
+        $response = $this->actingAs($author)->post(route('galleries.new'), $data);
+        $response->assertSee("not be greater than 25 characters");
+        $response->assertSee("not be greater than 1000 characters.");
+
+        $response->assertSessionHasErrors(['description', 'title']);
     }
 
     //Test for My galleries page

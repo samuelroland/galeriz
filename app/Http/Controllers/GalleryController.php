@@ -15,6 +15,11 @@ class GalleryController extends Controller
             return view('galleries.create');
         }
 
+        request()->validate([
+            'title' => 'required|max:25',
+            'description' => 'required|max:1000'
+        ]);
+
         $gallery = request(['title', 'description']);
         $gallery['user_id'] = Auth::user()->id;
 
