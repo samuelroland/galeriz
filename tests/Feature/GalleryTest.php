@@ -180,4 +180,13 @@ class GalleryTest extends TestCase
         $response->assertSee("My galleries");
         $response->assertSee("Here are all the galleries you published on Galeriz.");
     }
+
+    public function test_my_galleries_page_display_a_message_when_no_galleries_exists()
+    {
+        $user = User::factory()->create();  //new user without gallery
+
+        $response = $this->actingAs($user)->get(route('my'));
+
+        $response->assertSee("No gallery for the moment...");
+    }
 }

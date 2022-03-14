@@ -1,19 +1,19 @@
 @php
 switch(Route::currentRouteName()) {
-case 'panorama':
-$title = 'Panorama';
-$description = 'Panorama of all galleries published on Galeriz.';
+case "panorama":
+$title = "Panorama";
+$description = "Panorama of all galleries published on Galeriz.";
 break;
-case 'my':
-$title = 'My galleries';
-$description = 'Here are all the galleries you published on Galeriz.';
+case "my":
+$title = "My galleries";
+$description = "Here are all the galleries you published on Galeriz.";
 break;
 default:
-$title = 'No title';
-$description = 'no description';
+$title = "No title";
+$description = "no description";
 }
-
 @endphp
+
 <x-app-layout>
     <div class="my-3">
         <h1 class="text-3xl">
@@ -26,14 +26,16 @@ $description = 'no description';
         @foreach ($galleries as $gallery)
         <a class="single-gallery" href="{{ route('gallery', ['gallery' => $gallery->id]) }}">
             <div class="w-44 hover:bg-blue-100 overflow-hidden border border-gray-400 rounded-md m-1 p-1 pb-0">
-                <img class="w-44 h-44 block rounded-sm"
-                    src="{{ $gallery->cover != null ? $gallery->cover->safePath : 'default-cover.png' }}" alt="">
+                <img class="w-44 h-44 block rounded-sm" src="{{ $gallery->cover != null ? $gallery->cover->safePath : 'default-cover.png' }}" alt="">
                 <div class="whitespace-nowrap overflow-hidden text-ellipsis">
                     {{ $gallery->title }}
                 </div>
             </div>
         </a>
         @endforeach
+        @if ($galleries->count() == 0)
+        <div class="italic text-darkblue">No gallery for the moment...</div>
+        @endif
     </div>
 
 </x-app-layout>
