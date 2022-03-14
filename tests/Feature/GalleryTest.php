@@ -125,5 +125,30 @@ class GalleryTest extends TestCase
     }
 
     //Tests for Create a gallery page
+    public function test_gallery_creation_is_guarded()
+    {
+        $data = [
+            'title' => 'Great gallery',
+            'description' => 'A great gallery about my holidays.'
+        ];
 
+        $response = $this->post(route('galleries.new'), $data);
+        $response->assertStatus(302);
+        $response = $this->get(route('galleries.new'));
+        $response->assertStatus(302);
+    }
+
+    public function test_gallery_creation_endpoint_creates_a_gallery()
+    {
+        $data = [
+            'title' => 'Great gallery',
+            'description' => 'A great gallery about my holidays.'
+        ];
+
+        $response = $this->post(route('galleries.new'), $data);
+
+        $response->assertStatus(200);
+
+        $this->assertDatabaseHas('galleries', $data);
+    }
 }
