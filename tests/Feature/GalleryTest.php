@@ -168,6 +168,6 @@ class GalleryTest extends TestCase
 
         $response = $this->actingAs($user)->get(route('my'));
 
-        $this->assertEquals(substr_count($response->getContent(), '/galleries/'), $galleries->count());
+        $this->assertEquals(substr_count($response->getContent(), 'single-gallery'), $galleries->count());
     }
 }
