@@ -29,8 +29,10 @@ class DatabaseSeeder extends Seeder
         //Add cover images for a part of the galleries (4/5) with a random image contained in the gallery
         $galleries->each(function (Gallery $gallery) {
             if (rand(1, 5) < 5) {
-                $gallery->cover_id = $gallery->images->random()->id;
-                $gallery->save();
+                if ($gallery->images->count() != 0) { //make sure there are images inside before choosing a cover
+                    $gallery->cover_id = $gallery->images->random()->id;
+                    $gallery->save();
+                }
             }
         });
     }
