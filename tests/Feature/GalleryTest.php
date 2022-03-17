@@ -154,9 +154,10 @@ class GalleryTest extends TestCase
 
         $this->assertDatabaseHas('galleries', $data);
         $response->assertRedirect(route('gallery', ['gallery' => $author->galleries()->first()->id]));
+        $this->assertEquals($author->galleries()->first()->user_id, $author->id);
     }
 
-    public function test_gallery_creation_validates_data_and_display_errors()
+    public function test_gallery_creation_validates_data()
     {
         $author = User::factory()->create();
 
@@ -169,8 +170,6 @@ class GalleryTest extends TestCase
         $response = $this->actingAs($author)->post(route('galleries.new'), $data);
 
         $response->assertSessionHasErrors(['description', 'title']);
-        $response->assertSee("title field is required");
-        $response->assertSee("description field is required");
 
         //Values length must be checked
         $data = [
@@ -179,11 +178,10 @@ class GalleryTest extends TestCase
         ];
 
         $response = $this->actingAs($author)->post(route('galleries.new'), $data);
-        $response->assertSee("not be greater than 25 characters");
-        $response->assertSee("not be greater than 1000 characters.");
 
         $response->assertSessionHasErrors(['description', 'title']);
     }
+
 
     //Test for My galleries page
     public function test_my_galleries_page_is_guarded()
