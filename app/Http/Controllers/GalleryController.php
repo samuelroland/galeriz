@@ -30,12 +30,12 @@ class GalleryController extends Controller
 
     public function myGalleries()
     {
-        return view('galleries.index', ['galleries' => Auth::user()->galleries]);
+        return $this->index(Auth::user()->galleries);
     }
 
     public function followedGalleries()
     {
-        $this->index(Auth::user()->followedGalleries);
+        return $this->index(Auth::user()->followedGalleries);
     }
 
     public function index($galleries = null)

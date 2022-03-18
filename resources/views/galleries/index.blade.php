@@ -8,6 +8,10 @@ case "my":
 $title = "My galleries";
 $description = "Here are all the galleries you published on Galeriz.";
 break;
+case "followedGalleries":
+$title = "Followed galleries";
+$description = "Here are all the galleries you follow on Galeriz.";
+break;
 default:
 $title = "No title";
 $description = "no description";
