@@ -136,12 +136,12 @@ class GalleryTest extends TestCase
         ];
 
         $response = $this->post(route('galleries.new'), $data);
-        $response->assertStatus(302);
+        $response->assertRedirect(route('login'));
         $response = $this->get(route('galleries.new'));
-        $response->assertStatus(302);
+        $response->assertRedirect(route('login'));
     }
 
-    public function test_gallery_creation_endpoint_creates_a_gallery()
+    public function test_gallery_creation_creates_a_gallery_with_logged_user()
     {
         $author = User::factory()->create();
 
@@ -186,7 +186,7 @@ class GalleryTest extends TestCase
     //Test for My galleries page
     public function test_my_galleries_page_is_guarded()
     {
-        $this->get(route('my'))->assertStatus(302);
+        $this->get(route('my'))->assertRedirect(route('login'));
     }
 
     public function test_my_galleries_are_all_displayed()
