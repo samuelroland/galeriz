@@ -11,10 +11,6 @@ class GalleryController extends Controller
 {
     public function store()
     {
-        if (request()->all() == null) {
-            return view('galleries.create');
-        }
-
         request()->validate([
             'title' => 'required|max:25',
             'description' => 'required|max:1000'
@@ -24,12 +20,35 @@ class GalleryController extends Controller
         $gallery['user_id'] = Auth::user()->id;
 
         $gallery = Gallery::create($gallery);
-        return redirect(route('gallery', ['gallery' => $gallery->id]));
+        return redirect(route('galleries.show', ['gallery' => $gallery->id]));
+    }
+
+    public function create()
+    {
+        return view('galleries.create');
     }
 
     public function myGalleries()
     {
-        $galleries = Auth::user()->galleries;
+        return view('galleries.index', ['galleries' => Auth::user()->galleries]);
+    }
+
+    public function followedGalleries()
+    {
+        $this->index(Auth::user()->followedGalleries);
+    }
+
+    public function index($galleries = null)
+    {
+        if ($galleries == null) {
+            $galleries = Gallery::all();
+        }
+
         return view('galleries.index', ['galleries' => $galleries]);
+    }
+
+    public function show(Gallery $gallery)
+    {
+        return view('galleries.show', ['gallery' => $gallery]);
     }
 }

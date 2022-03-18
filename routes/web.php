@@ -1,32 +1,27 @@
 <?php
 
-use App\Http\Controllers\GalleryController;
 use App\Models\Gallery;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GalleryController;
 
 
-Route::get('/', function () {
-    $galleries = Gallery::all();
-    return view('galleries.index', ['galleries' => $galleries]);
-})->name("panorama");
+Route::controller(GalleryController::class)->group(function () {
+    Route::middleware(['auth:sanctum'])->group(function () {
+        Route::get('/galleries/create', 'create')->name("galleries.create");
+        Route::post('/galleries', 'store')->name("galleries.store");
 
-Route::middleware(['auth:sanctum'])->get('/my', [GalleryController::class, 'myGalleries'])->name("my");
+        Route::get('/my', 'myGalleries')->name("my");
+        Route::get('/followed', 'followedGalleries')->name("followedGalleries");
+    });
 
-Route::get('/followed', function () {
-    $galleries = Gallery::all();
-    return view('galleries.index', ['galleries' => $galleries]);
-})->name("followedGalleries");
+    Route::get('/', 'index')->name("galleries.index");
+    Route::get('/galleries/{gallery}', 'show')->name("galleries.show");
+});
 
-Route::middleware(['auth:sanctum'])->get('/galleries/new', [GalleryController::class, 'store'])->name("galleries.new");
-
-Route::middleware(['auth:sanctum'])->post('/galleries/new', [GalleryController::class, 'store'])->name("galleries.new");
-
-Route::get('/galleries/{gallery}', function (Gallery $gallery) {
-    return view('galleries.show', ['gallery' => $gallery]);
-})->name("gallery");
-
-
-Route::redirect('/galleries', '/');
+Route::get('/galleries', function () {
+    return redirect(route('galleries.index'));
+});
 
 Route::get('/profile', function () {
     return view('profile');

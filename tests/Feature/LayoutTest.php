@@ -13,7 +13,7 @@ class LayoutTest extends TestCase
 
     public function test_layout_menu_is_correct_when_unlogged()
     {
-        $response = $this->get(route('panorama'));
+        $response = $this->get(route('galleries.index'));
 
         $response->assertSee("Panorama");
         $response->assertDontSeeText("My galleries");
@@ -26,7 +26,7 @@ class LayoutTest extends TestCase
     public function test_layout_menu_is_correct_when_user_is_logged()
     {
         $user = User::factory()->create();
-        $response = $this->actingAs($user)->get(route('panorama'));
+        $response = $this->actingAs($user)->get(route('galleries.index'));
 
         $response->assertSeeText("Panorama");
         $response->assertSeeText("My galleries");

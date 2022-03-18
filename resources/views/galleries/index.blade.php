@@ -1,6 +1,6 @@
 @php
 switch(Route::currentRouteName()) {
-case "panorama":
+case "galleries.index":
 $title = "Panorama";
 $description = "Panorama of all galleries published on Galeriz.";
 break;
@@ -24,7 +24,7 @@ $description = "no description";
     <hr>
     <div class="flex flex-wrap mt-4 ">
         @foreach ($galleries as $gallery)
-        <a class="single-gallery" href="{{ route('gallery', ['gallery' => $gallery->id]) }}">
+        <a class="single-gallery" href="{{ route('galleries.show', ['gallery' => $gallery->id]) }}">
             <div class="w-44 hover:bg-blue-100 overflow-hidden border border-gray-400 rounded-md m-1 p-1 pb-0">
                 <img class="w-44 h-44 block rounded-sm" src="{{ $gallery->cover != null ? $gallery->cover->safePath : 'default-cover.png' }}" alt="">
                 <div class="whitespace-nowrap overflow-hidden text-ellipsis">

@@ -19,14 +19,14 @@ class GalleryTest extends TestCase
     //Gallery pages tests
     public function test_galleries_page_exists()
     {
-        $response = $this->get(route('panorama'));
+        $response = $this->get(route('galleries.index'));
 
         $response->assertStatus(200);
     }
 
     public function test_gallery_details_page_without_id_redirects_to_panorama()
     {
-        $this->get('/galleries')->assertRedirect(route('panorama'));
+        $this->get('/galleries')->assertRedirect(route('galleries.index'));
     }
 
     public function test_my_galleries_page_exists()
@@ -38,12 +38,12 @@ class GalleryTest extends TestCase
 
     public function test_gallery_details_page_exists()
     {
-        $this->get(route('gallery', ['gallery' => Gallery::all()->random()->id]))->assertStatus(200);
+        $this->get(route('galleries.show', ['gallery' => Gallery::all()->random()->id]))->assertStatus(200);
     }
 
     public function test_create_a_gallery_page_exists()
     {
-        $this->actingAs(User::first())->get(route('galleries.new'))->assertStatus(200);
+        $this->actingAs(User::first())->get(route('galleries.create'))->assertStatus(200);
     }
 
     //All galleries tests (Panorama page)
@@ -51,7 +51,7 @@ class GalleryTest extends TestCase
     {
         $galleries = Gallery::all();
 
-        $visitor = $this->get(route('panorama'));
+        $visitor = $this->get(route('galleries.index'));
 
         $visitor->assertSeeText($galleries->pluck('title')->toArray());
         $visitor->assertDontSeeText($galleries->pluck('description')->toArray());
@@ -60,7 +60,7 @@ class GalleryTest extends TestCase
     public function test_all_cover_images_are_displayed()
     {
         $galleries = Gallery::all();
-        $visitor = $this->get(route('panorama'));
+        $visitor = $this->get(route('galleries.index'));
 
         $galleries->where('cover_id', '!=', null)->each(
             function ($gallery) use ($visitor) {
@@ -72,7 +72,7 @@ class GalleryTest extends TestCase
     // public function test_galleries_have_a_default_cover()
     // {
     //     $galleries = Gallery::all();
-    //     $visitor = $this->get(route('panorama'));
+    //     $visitor = $this->get(route('galleries.index'));
     //     $this->assertEquals($galleries->where('cover_id', null)->count(), substr_count("gallery-cover.//png", $visitor->getContent()));
     // }
 
@@ -83,7 +83,7 @@ class GalleryTest extends TestCase
         $user = User::factory()->create();
         $gallery = Gallery::factory()->create(['user_id' => $user->id]);
 
-        $response = $this->get(route('gallery', ['gallery' => $gallery->id]));
+        $response = $this->get(route('galleries.show', ['gallery' => $gallery->id]));
 
         $response->assertSeeText([$gallery->title, $gallery->description, $gallery->author->name]);
 
@@ -93,7 +93,7 @@ class GalleryTest extends TestCase
     public function test_gallery_details_page_display_all_images()
     {
         $gallery = Gallery::first();
-        $visitor = $this->get(route('gallery', ['gallery' => $gallery->id]));
+        $visitor = $this->get(route('galleries.show', ['gallery' => $gallery->id]));
 
         $gallery->images->each(
             function ($image) use ($visitor) {
@@ -110,7 +110,7 @@ class GalleryTest extends TestCase
         $image->path = "wrong path";
         $image->save();
 
-        $response = $this->get(route('gallery', ['gallery' => $gallery->id]));
+        $response = $this->get(route('galleries.show', ['gallery' => $gallery->id]));
 
         $response->assertSee("image-not-found.png");
     }
@@ -122,7 +122,7 @@ class GalleryTest extends TestCase
         $image->path = "";
         $image->save();
 
-        $response = $this->get(route('gallery', ['gallery' => $gallery->id]));
+        $response = $this->get(route('galleries.show', ['gallery' => $gallery->id]));
 
         $response->assertSee("image-not-found.png");
     }
@@ -135,9 +135,9 @@ class GalleryTest extends TestCase
             'description' => 'A great gallery about my holidays.'
         ];
 
-        $response = $this->post(route('galleries.new'), $data);
+        $response = $this->post(route('galleries.store'), $data);
         $response->assertRedirect(route('login'));
-        $response = $this->get(route('galleries.new'));
+        $response = $this->get(route('galleries.create'));
         $response->assertRedirect(route('login'));
     }
 
@@ -150,10 +150,10 @@ class GalleryTest extends TestCase
             'description' => 'A great gallery about my holidays.'
         ];
 
-        $response = $this->actingAs($author)->post(route('galleries.new'), $data);
+        $response = $this->actingAs($author)->post(route('galleries.store'), $data);
 
         $this->assertDatabaseHas('galleries', $data);
-        $response->assertRedirect(route('gallery', ['gallery' => $author->galleries()->first()->id]));
+        $response->assertRedirect(route('galleries.show', ['gallery' => $author->galleries()->first()->id]));
         $this->assertEquals($author->galleries()->first()->user_id, $author->id);
     }
 
@@ -167,7 +167,7 @@ class GalleryTest extends TestCase
             'description' => ''
         ];
 
-        $response = $this->actingAs($author)->post(route('galleries.new'), $data);
+        $response = $this->actingAs($author)->post(route('galleries.store'), $data);
 
         $response->assertSessionHasErrors(['description', 'title']);
 
@@ -177,7 +177,7 @@ class GalleryTest extends TestCase
             'description' => Str::random(1100)
         ];
 
-        $response = $this->actingAs($author)->post(route('galleries.new'), $data);
+        $response = $this->actingAs($author)->post(route('galleries.store'), $data);
 
         $response->assertSessionHasErrors(['description', 'title']);
     }

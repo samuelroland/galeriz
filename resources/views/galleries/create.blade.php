@@ -4,7 +4,7 @@
     </div>
     <hr>
     <div>
-        <form method="post" action="{{ route('galleries.new') }}">
+        <form method="post" action="{{ route('galleries.store') }}">
             @csrf
             <x-field type="text" label="Title" name="title" />
             <x-field type="textarea" label="Description" name="description" />
