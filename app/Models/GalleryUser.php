@@ -9,5 +9,7 @@ class GalleryUser extends Model
 {
     use HasFactory;
 
-    protected $timestamps = false;
+    public $table = "gallery_user";
+
+    public $timestamps = false;
 }

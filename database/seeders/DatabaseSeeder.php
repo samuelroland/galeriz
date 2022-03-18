@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\User;
 use App\Models\Image;
 use App\Models\Gallery;
+use App\Models\GalleryUser;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DatabaseSeeder extends Seeder
 {
@@ -35,5 +36,8 @@ class DatabaseSeeder extends Seeder
                 }
             }
         });
+
+        //Add gallery_user records (users following galleries)
+        GalleryUser::factory(12)->create(fn () => ['user_id' => $users->random()->id, 'gallery_id' => $galleries->random()->id]);
     }
 }
