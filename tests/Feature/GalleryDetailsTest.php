@@ -42,7 +42,8 @@ class GalleryDetailsTest extends TestCase
 
     public function test_gallery_details_page_display_all_images()
     {
-        $gallery = Gallery::first();
+        $gallery = Gallery::factory()->create(['user_id' => User::first()->id]);
+        $images = Image::factory(3)->create(['gallery_id' => $gallery->id]);
         $visitor = $this->get(route('galleries.show', ['gallery' => $gallery->id]));
 
         $gallery->images->each(
@@ -75,5 +76,13 @@ class GalleryDetailsTest extends TestCase
         $response = $this->get(route('galleries.show', ['gallery' => $gallery->id]));
 
         $response->assertSee("image-not-found.png");
+    }
+
+    public function test_a_message_is_displayed_when_there_is_no_image()
+    {
+        $gallery = Gallery::factory()->create(['user_id' => User::first()->id]);
+        $response = $this->get(route('galleries.show', ['gallery' => $gallery->id]));
+
+        $response->assertSee("There is no image in this gallery...");
     }
 }
