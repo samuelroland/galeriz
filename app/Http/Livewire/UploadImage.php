@@ -16,7 +16,7 @@ class UploadImage extends Component
 
     protected $rules = [
         'title' => 'required|max:25',
-        'image' => 'required'   //image|max:1024
+        'image' => 'required|image'   //image|max:1024
     ];
 
     public function render()
@@ -27,17 +27,23 @@ class UploadImage extends Component
     public function save()
     {
         $data = $this->validate();
-
         $data['user_id'] = auth()->user()->id;
 
+        //Make and save the image record with an empty path
         $image = new Image;
         $image->title = $this->title;
-        $image->path = "";
+        $image->gallery_id = $this->gallery->id;
+        $image->path = "tbd";
         $image->save();
 
-        $image->path = "/images/" . $image->id;
+        //When we have the id we can choose the path
+        $image->path = "images/" . $image->id . "." . $this->image->extension();
         $image->save();
 
-        $this->image->store('images');
+        //We can finally store the file with its name
+        $this->image->storeAs('public/images', $image->id . "." . $this->image->extension());
+
+        //Reset the values of this component to the initial state
+        $this->reset();
     }
 }

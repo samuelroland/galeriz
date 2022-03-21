@@ -1,4 +1,4 @@
-<div class="overflow-hidden border border-gray-700 rounded-md p-2">
+<div class="overflow-hidden border border-gray-700 rounded-md p-2 max-w-sm">
     <h3>Upload a new image</h3>
     <x-field label="Title" wire:model.defer="title"></x-field>
     @error('title')
