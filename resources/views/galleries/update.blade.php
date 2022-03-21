@@ -6,12 +6,8 @@
     <hr>
 
     <div>
-        <h2 class="text-2xl">{{ $gallery->title }}
-            - by <span class="italic text-violet-800">
-                <a href="{{ '' }}">{{ $gallery->author->name }}</a>
-            </span>
-        </h2>
-        <p class="italic text-sm">{{ $gallery->description }}</p>
+        @livewire('gallery-details', ['gallery' => $gallery])
+
 
         <div class="flex flex-wrap mt-4 ">
             @foreach ($gallery->images as $image)
