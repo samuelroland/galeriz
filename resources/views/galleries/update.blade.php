@@ -19,6 +19,8 @@
             </div>
             @endforeach
         </div>
+
+        @livewire('upload-image', ['gallery' => $gallery])
     </div>
 
 </x-app-layout>

@@ -1,4 +1,4 @@
-@props(['label', 'type' => 'text', 'name'])
+@props(['label', 'name' => '', 'type' => 'text'])
 <div {{ $attributes->merge(['class' => 'mt-3']) }}>
     <label class="mb-1 block">{{ $label }}</label>
     @if ($type != 'textarea')
