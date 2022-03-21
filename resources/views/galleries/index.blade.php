@@ -38,7 +38,7 @@ $description = "no description";
         </a>
         @endforeach
         @if ($galleries->count() == 0)
-        <div class="italic text-darkblue">No gallery for the moment...</div>
+        <div class="text-message">No gallery for the moment...</div>
         @endif
     </div>
 

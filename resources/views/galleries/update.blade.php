@@ -8,16 +8,17 @@
     <div>
         @livewire('gallery-details', ['gallery' => $gallery])
 
-
         <div class="flex flex-wrap mt-4 ">
-            @foreach ($gallery->images as $image)
+            @forelse ($gallery->images as $image)
             <div class="overflow-hidden border border-gray-700 rounded-md m-1 pb-0">
                 <img class="w-full h-72 object-cover block " src="/{{ $image->safePath ?? 'default-cover.png' }}" alt="">
                 <div class="whitespace-nowrap overflow-hidden text-ellipsis max-w-xs mx-2">
                     {{ $image->title }}
                 </div>
             </div>
-            @endforeach
+            @empty
+            <span class="text-message">There is no image in this gallery...</span>
+            @endforelse
         </div>
 
         @livewire('upload-image', ['gallery' => $gallery])

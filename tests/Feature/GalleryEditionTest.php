@@ -110,4 +110,13 @@ class GalleryEditionTest extends TestCase
             ->call('save')
             ->assertHasErrors(['gallery.title', 'gallery.description']);
     }
+
+    public function test_a_message_is_displayed_when_there_is_no_image()
+    {
+        $author = User::first();
+        $gallery = Gallery::factory()->create(['user_id' => $author->id]);
+        $response = $this->actingAs($author)->get(route('galleries.update', ['gallery' => $gallery->id]));
+
+        $response->assertSee("There is no image in this gallery...");
+    }
 }

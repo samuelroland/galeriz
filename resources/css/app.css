@@ -14,3 +14,7 @@ See more on: https://alpinejs.dev/directives/cloak
 {
     display: none !important;
 }
+
+.text-message {
+    @apply italic text-darkblue
+}
