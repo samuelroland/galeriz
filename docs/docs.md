@@ -23,6 +23,7 @@ Galeriz is a galleries publishing web app. Authors can publish galleries of imag
         - [All galleries](#all-galleries)
         - [Create a gallery](#create-a-gallery)
         - [Gallery details](#gallery-details)
+        - [Gallery edition](#gallery-edition)
     - [Tests](#tests)
       - [Where are these tests ?](#where-are-these-tests-)
       - [Prerequesite to run tests ?](#prerequesite-to-run-tests-)
@@ -84,13 +85,12 @@ For the database I picked MySQL (as required) version 8. (TODO: check version)
 - Gallery details: all pictures in the gallery and the name of the author
 - Author details: information about the author and a list of the associated categories
 - Create a gallery: Create a new gallery without any picture
-- Manage gallery's pictures: Upload new pictures, manage titles, delete existing ones and browse current pictures.
+- Gallery edition: Manage gallery details (title and description), upload new images, manage titles, delete existing images and browse current ones.
 
 #### MCD
 ![MCD](MCD.png)
 #### MLD
 ![MLD](MLD.png)
-
 
 #### Models
 ##### Layout
@@ -111,6 +111,9 @@ For the database I picked MySQL (as required) version 8. (TODO: check version)
 ##### Gallery details
 ![Gallery details](models/Gallery_details.png)
 
+##### Gallery edition
+Gallery title, images titles and descriptions are editable on double click (an input appears).
+![Gallery edition](models/Gallery_edition.png)
 
 ### Tests
 This section concerns how Galeriz is tested manually and programmatically. Samuel tests during the development if the features are working in his browser. The main testing part is made with automated tests written with `phpunit` (a php testing framework).
