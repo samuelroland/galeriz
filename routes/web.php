@@ -13,6 +13,7 @@ Route::controller(GalleryController::class)->group(function () {
 
         Route::get('/my', 'myGalleries')->name("my");
         Route::get('/followed', 'followedGalleries')->name("followedGalleries");
+        Route::get('/galleries/{gallery}/edit', 'update')->name("galleries.update");
     });
 
     Route::get('/', 'index')->name("galleries.index");

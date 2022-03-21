@@ -51,4 +51,12 @@ class GalleryController extends Controller
     {
         return view('galleries.show', ['gallery' => $gallery]);
     }
+
+    public function update(Gallery $gallery)
+    {
+        if ($gallery->author()->isNot(Auth::user())) {
+            return redirect(route('galleries.show', ['gallery' => $gallery]));
+        }
+        return view('galleries.update', ['gallery' => $gallery]);
+    }
 }
