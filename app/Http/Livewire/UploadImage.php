@@ -45,5 +45,11 @@ class UploadImage extends Component
 
         //Reset the values of this component to the initial state
         $this->reset();
+
+        //Emit a "new image" event to let the list of images refresh itself
+        $this->emit("newImageEvent");
+
+        //Set the flashmessage
+        session()->flash('uploadImageMessage', 'Image successfully added to this gallery !');
     }
 }

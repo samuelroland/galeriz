@@ -5,9 +5,13 @@
     <span class="text-red-500 italic">{{ $message }}</span>
     @enderror
     <x-field label="Image" wire:model.defer="image" type="file"></x-field>
-    <div class="text-gray-700 text-sm">Uploaded: {{ $image }}</div>
     @error('image')
     <span class="text-red-500 italic">{{ $message }}</span>
     @enderror
+
+    @if(session()->has('uploadImageMessage'))
+    <span class="text-info">{{ session('uploadImageMessage') }}</span>
+    @endif
+
     <div class=" flex justify-end"><button wire:click='save' class="btn">Save</button></div>
 </div>
