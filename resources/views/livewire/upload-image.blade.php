@@ -9,8 +9,6 @@
     <span class="text-red-500 italic">{{ $message }}</span>
     @enderror
 
-
-
     <div class="mt-3 flex flex-wrap">
         <div class="flex-1">
             @if(session()->has('uploadImageMessage'))

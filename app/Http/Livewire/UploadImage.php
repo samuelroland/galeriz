@@ -16,7 +16,7 @@ class UploadImage extends Component
 
     protected $rules = [
         'title' => 'required|max:25',
-        'image' => 'required|image'   //image|max:1024
+        'image' => 'required|image|max:10000'   //Required - File of type image - maximum file size in KB (here 10 MB).
     ];
 
     public function render()
