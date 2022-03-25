@@ -18,7 +18,7 @@
         {{-- <div class="flex flex-wrap mt-4 ">
             @forelse ($gallery->images as $image)
             <div class="overflow-hidden border border-gray-700 rounded-md m-1 pb-0">
-                <img class="w-full h-72 object-cover block " src="/{{ $image->safePath ?? 'default-cover.png' }}" alt="">
+                <img class="w-full h-72 object-cover block " src="/{{ $image->safePath }}" alt="">
         <div class="whitespace-nowrap overflow-hidden text-ellipsis max-w-xs mx-2">
             {{ $image->title }}
         </div>
