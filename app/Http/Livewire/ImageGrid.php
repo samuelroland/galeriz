@@ -27,6 +27,13 @@ class ImageGrid extends Component
 
             //Check if the gallery is owned by the user
             if ($this->gallery->author->is(auth()->user())) {
+
+                //Before final deletion, we need to remove the cover image if this image is the cover
+                if ($this->gallery->cover->is($image)) {
+                    $this->gallery->cover_id = null;
+                    $this->gallery->save();
+                }
+
                 $image->delete();
             }
         }

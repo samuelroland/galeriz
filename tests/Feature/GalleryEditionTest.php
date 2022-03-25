@@ -133,6 +133,7 @@ class GalleryEditionTest extends TestCase
             ->call('delete', $image->id);
 
         $this->assertModelMissing($image);
+        //TODO: on disk
     }
 
     public function test_image_is_not_deleted_if_is_not_in_the_current_gallery()
@@ -159,5 +160,18 @@ class GalleryEditionTest extends TestCase
             ->call('delete', $image->id);
 
         $this->assertModelExists($image);   //make sure it was not deleted
+    }
+
+    public function test_cover_image_is_set_to_null_if_deleted_image_is_the_cover()
+    {
+        $image = Image::first();
+        $gallery = $image->gallery;
+        $gallery->cover = $image;
+        $this->actingAs($gallery->author);
+
+        Livewire::test(ImageGrid::class, ['gallery' => $gallery])
+            ->call('delete', $image->id);
+
+        $this->assertNull($gallery->cover_id);
     }
 }
