@@ -30,4 +30,14 @@ class Image extends Model
     {
         return $this->belongsTo(Gallery::class);
     }
+
+    //Better delete() method to delete db record and file on disk
+    public function delete()
+    {
+        //delete the model record normally
+        parent::delete();
+
+        //and delete the file too
+        Storage::disk('public')->delete($this->path);
+    }
 }

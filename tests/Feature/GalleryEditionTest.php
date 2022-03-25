@@ -166,12 +166,14 @@ class GalleryEditionTest extends TestCase
     {
         $image = Image::first();
         $gallery = $image->gallery;
-        $gallery->cover = $image;
+        $gallery->cover_id = $image->id;
+        $gallery->save();
         $this->actingAs($gallery->author);
 
         Livewire::test(ImageGrid::class, ['gallery' => $gallery])
             ->call('delete', $image->id);
 
+        $gallery->refresh();    //to get the new value of cover_id
         $this->assertNull($gallery->cover_id);
     }
 }

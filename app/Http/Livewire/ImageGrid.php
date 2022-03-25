@@ -29,7 +29,7 @@ class ImageGrid extends Component
             if ($this->gallery->author->is(auth()->user())) {
 
                 //Before final deletion, we need to remove the cover image if this image is the cover
-                if ($this->gallery->cover->is($image)) {
+                if ($this->gallery->cover?->is($image)) {
                     $this->gallery->cover_id = null;
                     $this->gallery->save();
                 }
