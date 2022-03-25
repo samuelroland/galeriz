@@ -10,6 +10,7 @@ use App\Models\Gallery;
 use Illuminate\Support\Str;
 use App\Http\Livewire\ImageGrid;
 use App\Http\Livewire\GalleryDetails;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -38,7 +39,7 @@ class GalleryEditionTest extends TestCase
         $response->assertRedirect(route('login'));
     }
 
-    public function test_gallery_edition_page_redirects_to_gallery_details_page_if_user_doesnt_own_the_gallery()
+    public function test_it_redirects_to_gallery_details_if_user_is_not_the_gallery_owner()
     {
         $author = User::first();
         $gallery = $author->galleries()->first();
@@ -49,7 +50,7 @@ class GalleryEditionTest extends TestCase
         $response->assertRedirect(route('galleries.show', ['gallery' => $gallery->id]));
     }
 
-    public function test_edit_button_is_not_visible_when_the_gallery_author_is_not_the_user_logged()
+    public function test_edit_button_is_not_visible_if_user_is_not_the_gallery_owner()
     {
         $author = User::all()->first();
         $gallery = $author->galleries()->first();
@@ -133,7 +134,7 @@ class GalleryEditionTest extends TestCase
             ->call('delete', $image->id);
 
         $this->assertModelMissing($image);
-        //TODO: on disk
+        $this->assertFalse(Storage::disk('public')->exists($image->path));
     }
 
     public function test_image_is_not_deleted_if_is_not_in_the_current_gallery()
@@ -149,7 +150,7 @@ class GalleryEditionTest extends TestCase
         $this->assertModelExists($image);   //make sure it was not deleted
     }
 
-    public function test_image_is_not_deleted_if_gallery_is_not_owned_by_the_logged_user()
+    public function test_image_is_not_deleted_if_author_is_not_the_gallery_owner()
     {
         //Context: the user is NOT the author of the gallery. The image is in the current gallery.
         $gallery = Gallery::factory()->create(['user_id' => User::find(1)->id]);
