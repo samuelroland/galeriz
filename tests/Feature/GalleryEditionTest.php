@@ -8,6 +8,7 @@ use App\Models\Image;
 use Livewire\Livewire;
 use App\Models\Gallery;
 use Illuminate\Support\Str;
+use App\Http\Livewire\ImageGrid;
 use App\Http\Livewire\GalleryDetails;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -59,14 +60,16 @@ class GalleryEditionTest extends TestCase
         $response->assertDontSee("Edit gallery");
     }
 
-    public function test_livewire_edition_component_are_present_on_page()
+    public function test_livewire_gallery_edition_components_are_present_on_page()
     {
         $gallery = Gallery::first();
 
         $response = $this->actingAs($gallery->author)->get(route('galleries.update', ['gallery' => $gallery->id]));
 
         $response->assertSeeLivewire('gallery-details');
+        $response->assertSeeLivewire('image-grid');
     }
+
 
     public function test_gallery_title_can_be_edited()
     {
@@ -118,5 +121,43 @@ class GalleryEditionTest extends TestCase
         $response = $this->actingAs($author)->get(route('galleries.update', ['gallery' => $gallery->id]));
 
         $response->assertSee("There is no image in this gallery...");
+    }
+
+    public function test_image_deletion_deletes_in_db_and_on_disk()
+    {
+        $image = Image::first();
+        $gallery = $image->gallery;
+        $this->actingAs($gallery->author);
+
+        Livewire::test(ImageGrid::class, ['gallery' => $gallery])
+            ->call('delete', $image->id);
+
+        $this->assertModelMissing($image);
+    }
+
+    public function test_image_is_not_deleted_if_is_not_in_the_current_gallery()
+    {
+        //Context: the user is the author of the gallery, but the image id given refers to an image outside of this gallery
+        $image = Image::factory()->create(['gallery_id' => Gallery::first()->id]);
+        $gallery = Gallery::factory()->create(['user_id' => User::first()->id]);
+        $this->actingAs($gallery->author);
+
+        Livewire::test(ImageGrid::class, ['gallery' => $gallery])
+            ->call('delete', $image->id);
+
+        $this->assertModelExists($image);   //make sure it was not deleted
+    }
+
+    public function test_image_is_not_deleted_if_gallery_is_not_owned_by_the_logged_user()
+    {
+        //Context: the user is NOT the author of the gallery. The image is in the current gallery.
+        $gallery = Gallery::factory()->create(['user_id' => User::find(1)->id]);
+        $image = Image::factory()->create(['gallery_id' => $gallery->id]);
+        $this->actingAs(User::find(2));
+
+        Livewire::test(ImageGrid::class, ['gallery' => $gallery])
+            ->call('delete', $image->id);
+
+        $this->assertModelExists($image);   //make sure it was not deleted
     }
 }
