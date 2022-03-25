@@ -2,6 +2,9 @@
 **PHPUnit tests:**  
 [![PHPUnit tests](https://github.com/samuelroland/galeriz/actions/workflows/laravel.yml/badge.svg?branch=main)](https://github.com/samuelroland/galeriz/actions/workflows/laravel.yml)
 
+
+![logo visual](/docs/img/logo-visual.png)
+
 ## Documentations
 - **[Project documentation](/docs/docs.md)**
 - **[Work Diary for every day of work](/docs/WorkDiary.md)**
