@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Image;
 use Livewire\Component;
 
 class ImageGrid extends Component
@@ -9,10 +10,25 @@ class ImageGrid extends Component
     public $gallery;
     public $edit = false;
 
+    //Listen to newImageEvent to render again (to have $gallery->images refreshed from the database)
     protected $listeners = ['newImageEvent' => 'render'];
 
     public function render()
     {
         return view('livewire.image-grid');
+    }
+
+    //Delete an image by id
+    public function delete($id)
+    {
+        $image = Image::find($id);
+        //Check if the image is present in the gallery
+        if ($this->gallery->images->contains($image)) {
+
+            //Check if the gallery is owned by the user
+            if ($this->gallery->author->is(auth()->user())) {
+                $image->delete();
+            }
+        }
     }
 }

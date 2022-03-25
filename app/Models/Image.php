@@ -25,4 +25,9 @@ class Image extends Model
             return $defaultImagePath;
         }
     }
+
+    public function gallery()
+    {
+        return $this->belongsTo(Gallery::class);
+    }
 }
