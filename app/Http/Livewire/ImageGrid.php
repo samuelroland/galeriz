@@ -35,6 +35,9 @@ class ImageGrid extends Component
                 }
 
                 $image->delete();
+
+                //Make sure to refresh the content of $gallery to see the updated images list on the view
+                $this->gallery->refresh();
             }
         }
     }
