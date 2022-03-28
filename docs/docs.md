@@ -34,8 +34,7 @@ Galeriz is a galleries publishing web applicaiton. Authors can publish galleries
     - [Planification](#planification)
     - [Design elements](#design-elements)
   - [Realisation](#realisation)
-    - [Remaining errors](#remaining-errors)
-  - [Conclusion](#conclusion)
+    - [Repository structure](#repository-structure)
   - [Appendix](#appendix)
     - [Pre-TPI summary](#pre-tpi-summary)
     - [Work diary](#work-diary)
@@ -81,9 +80,9 @@ Par exemple :
 ### Architecture
 To develop faster, I have chosen a PHP framework called [Laravel](https://laravel.com) that I used during my first apprenticeship and for different personal projects at home. In addition to Laravel, I choose to use Livewire, which is a fullstack components framework for Laravel. It helps me create reactive frontend interactions without writing tons of AJAX requests and Javascript code. To avoid some useless requests in the backend just to change visibility of elements, I picked AlpineJS, which is a lightweight Javascript framework. To design my app without a lot of pure CSS, I imported TailwindCSS (a CSS framework).
 
-This combination of 4 frameworks is called [the TALL stack](https://tallstack.dev/) and is not unusual around the Laravel ecosystem.
+This combination of these 4 frameworks is called [the TALL stack](https://tallstack.dev/) and is not unusual around the Laravel ecosystem. I chose Laravel 9 and not 8 because it's the latest one.
 
-For the database I picked MySQL (as required) version 8. (TODO: check version)
+For the database I picked MySQL (as required) version 8.0.
 
 ### Available pages
 
@@ -234,17 +233,21 @@ I recommend you to setup a shortcut in your IDE to run the tests. I used this ke
 }
 ```
 
-### Planification 
+### Planification
 
-Révision de la planification initiale du projet :
+Here is the final planning.
 
-•	planning indiquant les dates de début et de fin du projet ainsi que le découpage connu des diverses phases. 
-•	partage des tâches en cas de travail à plusieurs.
-
-Il s’agit en principe de la planification définitive du projet. Elle peut être ensuite affinée (découpage des tâches). Si les délais doivent être ensuite modifiés, le responsable de projet doit être avisé, et les raisons doivent être expliquées dans l’historique.
+![Final planning](img/final-planning.png)
 
 ### Design elements
 
+I used Balsamiq Wireframes with the CPNV licence to do my models.
+
+I created a few reusable components:
+- `field`: a reusable blade component to use as an input or textarea
+- `btn` and `text-message`: css class to style buttons and texts for messages.
+
+<!--
 Fournir tous les document de conception:
 
 •	le choix du matériel HW
@@ -255,8 +258,16 @@ Fournir tous les document de conception:
 •	programmation et scripts: organigramme, architecture du programme, découpage modulaire, entrées-sorties des modules, pseudo-code / structogramme…
 
 Le dossier de conception devrait permettre de sous-traiter la réalisation du projet !
+ -->
+
 
 ## Realisation
+
+
+### Repository structure
+Most of the folders are the application folders. The `docs` folder contains the documentation material, `docs.md` (this documentation), the MCD and MLD export files, the WorkDiary.md, the exported models in `models`. `sources` contains the source file of the models, the MCD, and the MLD.
+<!--
+
 3.1	Dossier de réalisation
 
 Décrire la réalisation "physique" de votre projet
@@ -295,7 +306,7 @@ Développez en tous cas les points suivants:
 •	Difficultés particulières
 •	Suites possibles pour le projet (évolutions & améliorations)
 
-
+ -->
 ## Appendix
 
 ### Pre-TPI summary
