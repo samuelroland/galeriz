@@ -52,6 +52,11 @@ Configure your `php.ini` file to enable the following extensions:
     npm install
     ```
 
+ 1. Create the symbolic link for the public storage
+ ```bash
+ php artisan storage:link
+ ```
+
 ### Run development server
 
 1. You need to compile assets (CSS mostly) with mix with watch mode:

@@ -27,6 +27,8 @@ Galeriz is a galleries publishing web applicaiton. Authors can publish galleries
       - [Gallery edition](#gallery-edition)
     - [Tests](#tests)
       - [Where are these tests ?](#where-are-these-tests-)
+      - [Tests coverage](#tests-coverage)
+      - [Tests results](#tests-results)
       - [Prerequesite to run tests ?](#prerequesite-to-run-tests-)
       - [How to run tests ?](#how-to-run-tests-)
     - [Planification](#planification)
@@ -125,22 +127,77 @@ Gallery title, images titles and descriptions are editable on double click (an i
 ![Gallery edition](models/Gallery_edition.png)
 
 ### Tests
-This section concerns how Galeriz is tested manually and programmatically. Samuel tests during the development in his browser. Most of the features and cases are tested with automated tests written with `phpunit` (a php testing framework).
+This section concerns how Galeriz is tested manually and programmatically. Samuel tests during the development in his browser. Most of the features and cases are tested with automated tests written with `phpunit` (a php testing framework). The testing strategy is simply to develop in BDD (Behavior Driven Development), so writing feature tests to check the behavior of features with given data and expected output, and then developing these features. Samuel tests manually during the development that everything works as expected in the frontend, especially things that he didn't test programmatically. The entire test suite is runned very frequently.
 
 #### Where are these tests ?
-Everything is in the `tests` folder in the repository. The folder `Feature` contains all the feature tests. The folder `Unit` is not used because I didn't need to write unit tests. The folder `Jetstream` contains all the tests written by Jetstream (I moved from `Feature` to `Jetstream` because I wanted to avoid to run them each time I run the test suite). I wrote **38** feature tests to cover most of the features, some tests are missing (for image upload for ex.), but in this case I tested by hand too.
+Everything is in the `tests` folder in the repository. The folder `Feature` contains all the feature tests. The folder `Unit` is not used because I didn't need to write unit tests.  
+The folder `Jetstream` contains all the tests written by Jetstream (I moved from `Feature` to `Jetstream` because I wanted to avoid to run them each time I run the test suite). I wrote **38** feature tests to cover most of the features, some tests are missing (for image upload for ex.), but in this case I tested by hand too.
 
-Here is the list of test classes:s
-```
-AllGalleriesTest.php     
-FollowedGalleriesTest.php
-GalleryCreationTest.php  
-GalleryDetailsTest.php   
-GalleryEditionTest.php   
-LayoutTest.php
-MyGalleriesTest.php      
-UploadImageTest.php   
-```
+#### Tests coverage
+As we are limited to the backend, I cannot test frontend interactions and Javascript code programmatically. For most features, I tested that the page loads correctly, I tested the ideal case, and then I wrote data validation, disk file presence, ... I did not have time to write more tests on Image upload for data validations and other possible errors (upload fail, image type and size check, ...) so I tested it manually and it works.
+
+Here is the complete list of tests. The names should helps to have an idea of how much it is tested.
+
+**Tests\Feature\AllGalleriesTest**
+- galleries page exists
+- all galleries are visible
+- all cover images are displayed
+
+**Tests\Feature\FollowedGalleriesTest**
+- followed galleries page exists
+- followed galleries page is guarded
+- it contains title and description
+
+**Tests\Feature\GalleryCreationTest**
+- create a gallery page exists
+- gallery creation is guarded
+- gallery creation creates a gallery with logged user
+- gallery creation validates data
+
+**Tests\Feature\GalleryDetailsTest**
+- gallery details page without id redirects to panorama
+- gallery details page exists
+- gallery details page is displayed
+- gallery details page display all images
+- an image without file on disk has default not found image
+- an image with empty path has default not found image
+- a message is displayed when there is no image
+
+**Tests\Feature\GalleryEditionTest**
+- gallery edition page exists
+- gallery edition page is guarded
+- it redirects to gallery details if user is not the gallery owner
+- edit button is not visible if user is not the gallery owner
+- livewire gallery edition components are present on page
+- gallery title can be edited
+- gallery description can be edited
+- title and description must be valid
+- a message is displayed when there is no image
+- image deletion deletes in db and on disk
+- image is not deleted if is not in the current gallery
+- image is not deleted if author is not the gallery owner
+- cover image is set to null if deleted image is the cover
+
+**Tests\Feature\LayoutTest**
+- layout menu is correct when unlogged
+- layout menu is correct when user is logged
+
+**Tests\Feature\MyGalleriesTest**
+- my galleries page exists
+- my galleries page is guarded
+- my galleries are all displayed
+- has title and description
+- display a message when no galleries exists
+
+**Tests\Feature\UploadImageTest**
+- image can be uploaded
+
+#### Tests results
+
+The tests runned the 28.03.2022 at 16:30 are all passing:
+![Tests resulsts](img/tests.png)
+
+If you want to see the result of tests at the last commit or older ones, you can go on the [Actions tab](https://github.com/samuelroland/galeriz/actions) on the repository and see the lastest run of the `laravel.yml` workflow running all feature tests (only feature tests not the others).
 
 #### Prerequesite to run tests ?
 `phpunit` is a binary CLI pulled by composer, so you need to have pulled composer packages (`composer install`). As defined in the `phpunit.xml`, tests are runned against an in memory sqlite database. Each tests seed the database again with the default seeder.
@@ -151,16 +208,19 @@ This lines at the bottom of `phpunit.xml` (root of the repos), define 2 environm
 <env name="DB_CONNECTION" value="sqlite"/>
 ```
 
+You need the SQLite php extension too.
+
 #### How to run tests ?
-There are different ways to run the tests:
+There are different ways to run the tests in your terminal:
 - `./vendor/bin/phpunit`
 - `php artisan test`
 
-You can pass argument to `phpunit` or after the `php artisan test` command. 
+You can pass arguments to `phpunit` or (same arguments after the `php artisan test` command).
 
-- Example to execute only 1 test:  
+**Examples**:
+- to execute only 1 test:  
 `php artisan test --filter my_galleries_page_exists`
-- Example to execute tests of a given class:  
+- to execute tests for a given class:  
  `php artisan test tests/Feature/AllGalleriesTest.php`
 
 I recommend you to setup a shortcut in your IDE to run the tests. I used this keyboard shorcut setting in VSCode to run `php artisan test tests/Feature` on `ctrl+t ctrl+t`
@@ -173,14 +233,6 @@ I recommend you to setup a shortcut in your IDE to run the tests. I used this ke
     }
 }
 ```
-
-Décrire la stratégie globale de test: 
-
-•	types de des tests et ordre dans lequel ils seront effectués.
-•	les moyens à mettre en œuvre.
-•	couverture des tests (tests exhaustifs ou non, si non, pourquoi ?).
-•	données de test à prévoir (données réelles ?).
-•	les testeurs extérieurs éventuels.
 
 ### Planification 
 
