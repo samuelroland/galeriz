@@ -11,7 +11,6 @@ Galeriz is a galleries publishing web applicaiton. Authors can publish galleries
     - [Goals](#goals)
     - [Initial planning](#initial-planning)
   - [Analysis/Design](#analysisdesign)
-    - [Concept](#concept)
     - [Architecture](#architecture)
     - [Available pages](#available-pages)
     - [Database](#database)
@@ -38,6 +37,8 @@ Galeriz is a galleries publishing web applicaiton. Authors can publish galleries
   - [Appendix](#appendix)
     - [Pre-TPI summary](#pre-tpi-summary)
     - [Work diary](#work-diary)
+    - [Installation manual](#installation-manual)
+    - [Project source code](#project-source-code)
     - [Icons](#icons)
 
 ### Goals
@@ -67,15 +68,6 @@ The projects planning and tasks management is done with Github Issues and Github
 ![Planning](./img/planning.png)
 
 ## Analysis/Design
-### Concept
-
-Le concept complet avec toutes ses annexes :
-
-Par exemple : 
-•	Multimédia: carte de site, maquettes papier, story board préliminaire, …
-•	Bases de données: interfaces graphiques, modèle conceptuel.
-•	Programmation: interfaces graphiques, maquettes, analyse fonctionnelle…
-•	…
 
 ### Architecture
 To develop faster, I have chosen a PHP framework called [Laravel](https://laravel.com) that I used during my first apprenticeship and for different personal projects at home. In addition to Laravel, I choose to use Livewire, which is a fullstack components framework for Laravel. It helps me create reactive frontend interactions without writing tons of AJAX requests and Javascript code. To avoid some useless requests in the backend just to change visibility of elements, I picked AlpineJS, which is a lightweight Javascript framework. To design my app without a lot of pure CSS, I imported TailwindCSS (a CSS framework).
@@ -126,14 +118,14 @@ Gallery title, images titles and descriptions are editable on double click (an i
 ![Gallery edition](models/Gallery_edition.png)
 
 ### Tests
-This section concerns how Galeriz is tested manually and programmatically. Samuel tests during the development in his browser. Most of the features and cases are tested with automated tests written with `phpunit` (a php testing framework). The testing strategy is simply to develop in BDD (Behavior Driven Development), so writing feature tests to check the behavior of features with given data and expected output, and then developing these features. Samuel tests manually during the development that everything works as expected in the frontend, especially things that he didn't test programmatically. The entire test suite is runned very frequently.
+This section concerns how Galeriz is tested manually and with automated tests. Samuel tests during the development in his browser. Most of the features and cases are tested with automated tests written with `phpunit` (a php testing framework). The testing strategy is simply to develop in BDD (Behavior Driven Development), so writing feature tests to check the behavior of features with given data and expected output, and then developing these features. Samuel tests manually during the development that everything works as expected in the frontend, especially things that he didn't test with automated tests. The entire test suite is runned very frequently.
 
 #### Where are these tests ?
 Everything is in the `tests` folder in the repository. The folder `Feature` contains all the feature tests. The folder `Unit` is not used because I didn't need to write unit tests.  
 The folder `Jetstream` contains all the tests written by Jetstream (I moved from `Feature` to `Jetstream` because I wanted to avoid to run them each time I run the test suite). I wrote **38** feature tests to cover most of the features, some tests are missing (for image upload for ex.), but in this case I tested by hand too.
 
 #### Tests coverage
-As we are limited to the backend, I cannot test frontend interactions and Javascript code programmatically. For most features, I tested that the page loads correctly, I tested the ideal case, and then I wrote data validation, disk file presence, ... I did not have time to write more tests on Image upload for data validations and other possible errors (upload fail, image type and size check, ...) so I tested it manually and it works.
+As we are limited to the backend, I cannot test frontend interactions and Javascript code with automated tests. For most features, I tested that the page loads correctly, I tested the ideal case, and then I wrote data validation, disk file presence, ... I did not have time to write more tests on Image upload for data validations and other possible errors (upload fail, image type and size check, ...) so I tested it manually and it works.
 
 Here is the complete list of tests. The names should helps to have an idea of how much it is tested.
 
@@ -201,7 +193,7 @@ If you want to see the result of tests at the last commit or older ones, you can
 #### Prerequesite to run tests ?
 `phpunit` is a binary CLI pulled by composer, so you need to have pulled composer packages (`composer install`). As defined in the `phpunit.xml`, tests are runned against an in memory sqlite database. Each tests seed the database again with the default seeder.
 
-This lines at the bottom of `phpunit.xml` (root of the repos), define 2 environment variables. (TODO)
+This lines at the bottom of `phpunit.xml` (root of the repos), define 2 environment variables.
 ```xml
 <env name="DB_DATABASE" value=":memory:"/>
 <env name="DB_CONNECTION" value="sqlite"/>
@@ -260,9 +252,7 @@ Fournir tous les document de conception:
 Le dossier de conception devrait permettre de sous-traiter la réalisation du projet !
  -->
 
-
 ## Realisation
-
 
 ### Repository structure
 Most of the folders are the application folders. The `docs` folder contains the documentation material, `docs.md` (this documentation), the MCD and MLD export files, the WorkDiary.md, the exported models in `models`. `sources` contains the source file of the models, the MCD, and the MLD.
@@ -310,19 +300,31 @@ Développez en tous cas les points suivants:
 ## Appendix
 
 ### Pre-TPI summary
+
+The Pré-TPI went well for me, I develop most of the required features and they are mostly fully tested with automated tests.
+
+**I poorly managed the redaction of this documentation and I have to release it half done sorry...**
+
+<!--
 5.2	Sources – Bibliographie
 
 Liste des livres utilisés (Titre, auteur, date), des sites Internet (URL) consultés, des articles (Revue, date, titre, auteur)… Et de toutes les aides externes (noms)   
-
+-->
 ### Work diary
 I wrote the diary in a separated file under [docs/WorkDiary.md](/docs/WorkDiary.md)
 
-
+### Installation manual
+The installation steps are described in the README.
+<!-- 
 5.4	Manuel d'Installation
 
 5.5	Manuel d'Utilisation
 
 5.6	Archives du projet 
+-->
+
+### Project source code
+Present [on Github](https://github.com/samuelroland/galeriz).
 
 ### Icons
 All icons comes from [heroicons.com](https://heroicons.com/) and are licenced under MIT. I used them by copy paste.

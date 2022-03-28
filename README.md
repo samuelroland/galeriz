@@ -21,17 +21,16 @@ You need:
 - MySQL v8+
 - Git v2+
 - An IDE for PHP
-- **TODO**
-
-<!-- IDE ??-->
-<!-- Extensions ??-->
 
 ## Setup
 
 ### Environment setup
 
 Configure your `php.ini` file to enable the following extensions:
-- **TODO**
+- SQLITE
+- PDO MySQL
+- Openssl
+- Curl
 
 ### Project setup
 1. Clone the repository and go inside:
@@ -69,3 +68,10 @@ Configure your `php.ini` file to enable the following extensions:
     ```bash
     php artisan server
     ```
+### Prepare for production
+
+1. You need to compile assets (CSS mostly)
+    ```bash
+    npm run prod
+    ```
+1. You can now start an Apache or Nginx server on the public folder to serve your app to the world.
