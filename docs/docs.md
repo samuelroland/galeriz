@@ -1,11 +1,11 @@
-# Documentation
+# Galeriz Documentation
 
 ## First analysis
 ### Introduction
 Galeriz is a galleries publishing web applicaiton. Authors can publish galleries of images, manage their images, choose cover image for each gallery, add titles, and follow other galleries. Everyone can see the galleries and their images, only authenticated users can manage images and galleries.
 
 **Table of content**:
-- [Documentation](#documentation)
+- [Galeriz Documentation](#galeriz-documentation)
   - [First analysis](#first-analysis)
     - [Introduction](#introduction)
     - [Goals](#goals)
