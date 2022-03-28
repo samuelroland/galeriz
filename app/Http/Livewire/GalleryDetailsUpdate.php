@@ -22,8 +22,9 @@ class GalleryDetailsUpdate extends Component
     {
         $this->validate();
 
-        $this->gallery->save();
+        $this->gallery->save(); //this will be reached only if data are validated
 
-        $this->gallery->refresh();
+        //Set the flashmessage
+        session()->flash('updateMessage', 'Gallery details successfully updated!');
     }
 }
