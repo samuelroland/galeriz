@@ -81,7 +81,6 @@ class GalleryEditionTest extends TestCase
             ->set('gallery.title', "great title")
             ->call('save');
 
-        $tester->assertSee("great title")->assertDontSee($gallery->title);
         $this->assertTrue(Gallery::whereTitle('great title')->exists());
     }
 
