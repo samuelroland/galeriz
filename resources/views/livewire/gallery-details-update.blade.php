@@ -17,4 +17,6 @@
         <span class="text-red-500 italic">{{ $message }}</span>
         @enderror
     </p>
+
+    <button class="btn mt-2" wire:click="save">Save</button>
 </div>

@@ -4,7 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 
-class GalleryDetails extends Component
+class GalleryDetailsUpdate extends Component
 {
     public $gallery;
 
@@ -15,7 +15,7 @@ class GalleryDetails extends Component
 
     public function render()
     {
-        return view('livewire.gallery-details');
+        return view('livewire.gallery-details-update');
     }
 
     public function save()

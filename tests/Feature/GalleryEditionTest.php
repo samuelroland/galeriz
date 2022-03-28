@@ -9,7 +9,7 @@ use Livewire\Livewire;
 use App\Models\Gallery;
 use Illuminate\Support\Str;
 use App\Http\Livewire\ImageGrid;
-use App\Http\Livewire\GalleryDetails;
+use App\Http\Livewire\GalleryDetailsUpdate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -67,7 +67,7 @@ class GalleryEditionTest extends TestCase
 
         $response = $this->actingAs($gallery->author)->get(route('galleries.update', ['gallery' => $gallery->id]));
 
-        $response->assertSeeLivewire('gallery-details');
+        $response->assertSeeLivewire('gallery-details-update');
         $response->assertSeeLivewire('image-grid');
     }
 
@@ -77,7 +77,7 @@ class GalleryEditionTest extends TestCase
         $gallery = Gallery::first();
         $this->actingAs($gallery->author);
 
-        $tester = Livewire::test(GalleryDetails::class, ['gallery' => $gallery])
+        $tester = Livewire::test(GalleryDetailsUpdate::class, ['gallery' => $gallery])
             ->set('gallery.title', "great title")
             ->call('save');
 
@@ -90,7 +90,7 @@ class GalleryEditionTest extends TestCase
         $gallery = Gallery::first();
         $this->actingAs($gallery->author);
 
-        Livewire::test(GalleryDetails::class, ['gallery' => $gallery])
+        Livewire::test(GalleryDetailsUpdate::class, ['gallery' => $gallery])
             ->set('gallery.description', "great description")
             ->call('save');
 
@@ -102,13 +102,13 @@ class GalleryEditionTest extends TestCase
         $gallery = Gallery::first();
         $this->actingAs($gallery->author);
 
-        Livewire::test(GalleryDetails::class, ['gallery' => $gallery])
+        Livewire::test(GalleryDetailsUpdate::class, ['gallery' => $gallery])
             ->set('gallery.description', "   ")
             ->set('gallery.title', "")
             ->call('save')
             ->assertHasErrors(['gallery.title', 'gallery.description']);
 
-        Livewire::test(GalleryDetails::class, ['gallery' => $gallery])
+        Livewire::test(GalleryDetailsUpdate::class, ['gallery' => $gallery])
             ->set('gallery.description', Str::random(1100))
             ->set('gallery.title', Str::random(40))
             ->call('save')

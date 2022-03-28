@@ -6,7 +6,7 @@
     <hr>
 
     <div>
-        @livewire('gallery-details', ['gallery' => $gallery])
+        @livewire('gallery-details-update', ['gallery' => $gallery])
 
         @livewire('image-grid', ['gallery' => $gallery, 'edit' => true])
 
