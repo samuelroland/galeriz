@@ -6,8 +6,8 @@
     <div>
         <form method="post" action="{{ route('galleries.store') }}">
             @csrf
-            <x-field type="text" label="Title" name="title" />
-            <x-field type="textarea" label="Description" name="description" />
+            <x-field name="title" type="text" label="Title" name="title" />
+            <x-field name="description" type="textarea" label="Description" name="description" />
             <button class="mt-2 btn" type="submit">Create</button>
         </form>
     </div>
