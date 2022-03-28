@@ -44,7 +44,7 @@ class UploadImage extends Component
         $this->image->storeAs('public/images', $image->id . "." . $this->image->extension());
 
         //Reset the values of this component to the initial state
-        $this->reset();
+        $this->reset(['title', 'image']);
 
         //Emit a "new image" event to let the list of images refresh itself
         $this->emit("newImageEvent");
