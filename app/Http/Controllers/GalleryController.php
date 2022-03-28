@@ -38,6 +38,7 @@ class GalleryController extends Controller
         return $this->index(Auth::user()->followedGalleries);
     }
 
+    //List all galleries. The galleries can be given to have a filtered list.
     public function index($galleries = null)
     {
         if ($galleries == null) {

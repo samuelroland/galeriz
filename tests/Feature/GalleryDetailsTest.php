@@ -36,8 +36,6 @@ class GalleryDetailsTest extends TestCase
         $response = $this->get(route('galleries.show', ['gallery' => $gallery->id]));
 
         $response->assertSeeText([$gallery->title, $gallery->description, $gallery->author->name]);
-
-        //todo: gallery cover
     }
 
     public function test_gallery_details_page_display_all_images()

@@ -24,7 +24,6 @@ class AllGalleriesTest extends TestCase
         $response->assertStatus(200);
     }
 
-
     //All galleries tests (Panorama page)
     public function test_all_galleries_are_visible()
     {
@@ -47,12 +46,4 @@ class AllGalleriesTest extends TestCase
             }
         );
     }
-
-    // public function test_galleries_have_a_default_cover()
-    // {
-    //     $galleries = Gallery::all();
-    //     $visitor = $this->get(route('galleries.index'));
-    //     $this->assertEquals($galleries->where('cover_id', null)->count(), substr_count("gallery-cover.//png", $visitor->getContent()));
-    // }
-
 }
