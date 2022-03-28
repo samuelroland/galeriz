@@ -18,11 +18,12 @@ class DatabaseSeeder extends Seeder
         $users->push(User::factory()->create(['name' => "Sam", 'email' => 'sam@sam.com', 'password' => bcrypt('password')]));   //add special fixed user for testing
 
         //Create 7 galleries linked to an existing user
-        $galleries = Gallery::factory(7)->create(fn () => ['user_id' => $users->random()->id]);    //Create 7 galleries made by a random user
-        $galleries = Gallery::factory(7)->create(fn () => ['user_id' => $users->first()]);    //Make sure the first user has at least 2 galleries (for testing)
+        Gallery::factory(2)->create(fn () => ['user_id' => $users->random()->id]);    //Create 4 galleries made by a random user
+        Gallery::factory(2)->create(fn () => ['user_id' => $users->first()]);    //Make sure the first user has at least 2 galleries (for testing)
+        $galleries = Gallery::all();
 
         //Create 15 images linked to an existing category
-        $images = Image::factory(15)->create(fn () => ['gallery_id' => $galleries->random()->id]);
+        $images = Image::factory(20)->create(fn () => ['gallery_id' => $galleries->random()->id]);
 
         //Add cover images for a part of the galleries (4/5) with a random image contained in the gallery
         $galleries->each(function (Gallery $gallery) {
