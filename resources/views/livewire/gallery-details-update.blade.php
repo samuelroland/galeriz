@@ -1,21 +1,9 @@
 <div>
     <h2 class="text-2xl">
-        <input class="px-1" wire:model.defer="gallery.title" value="{{ $gallery->title }}" />
-        - by <span class="italic text-violet-800">
-            <a href="{{ '' }}">
-                {{ $gallery->author->name }}
-            </a>
-        </span>
-        <br>
-        @error('gallery.title')
-        <span class="text-red-500 italic text-sm">{{ $message }}</span>
-        @enderror
+        <x-field class="inline" cssOnField="text-2xl" name="gallery.title" wire:model.defer="gallery.title"></x-field>
     </h2>
     <p class="italic text-sm mt-2">
-        <textarea class="p-1 w-full" wire:model.defer="gallery.description">{{ $gallery->description }}</textarea>
-        @error('gallery.description')
-        <span class="text-red-500 italic">{{ $message }}</span>
-        @enderror
+        <x-field class="inline" name="gallery.description" wire:model.defer="gallery.description" type="textarea"></x-field>
     </p>
     @if(session()->has('updateMessage'))
     <div class="text-message mt-2">{{ session('updateMessage') }}</div>
