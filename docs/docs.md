@@ -2,7 +2,7 @@
 
 ## First analysis
 ### Introduction
-Galeriz is a galleries publishing web app. Authors can publish galleries of images, choose cover image, manage the images, add titles, and follow other galleries. Everyone can see the galleries and their images.
+Galeriz is a galleries publishing web applicaiton. Authors can publish galleries of images, manage their images, choose cover image for each gallery, add titles, and follow other galleries. Everyone can see the galleries and their images, only authenticated users can manage images and galleries.
 
 **Table of content**:
 - [Documentation](#documentation)
@@ -14,16 +14,17 @@ Galeriz is a galleries publishing web app. Authors can publish galleries of imag
     - [Concept](#concept)
     - [Architecture](#architecture)
     - [Available pages](#available-pages)
+    - [Database](#database)
       - [MCD](#mcd)
       - [MLD](#mld)
-      - [Models](#models)
-        - [Layout](#layout)
-        - [Login](#login)
-        - [Register](#register)
-        - [All galleries](#all-galleries)
-        - [Create a gallery](#create-a-gallery)
-        - [Gallery details](#gallery-details)
-        - [Gallery edition](#gallery-edition)
+    - [Models](#models)
+      - [Layout](#layout)
+      - [Login](#login)
+      - [Register](#register)
+      - [All galleries](#all-galleries)
+      - [Create a gallery](#create-a-gallery)
+      - [Gallery details](#gallery-details)
+      - [Gallery edition](#gallery-edition)
     - [Tests](#tests)
       - [Where are these tests ?](#where-are-these-tests-)
       - [Prerequesite to run tests ?](#prerequesite-to-run-tests-)
@@ -50,7 +51,7 @@ As visitor (logged out)
 1. See the images inside galleries
 
 As user (logged in)
-1. Possibility to follow a galleries
+1. Possibility to follow a gallasdfery
 1. Display a list of followed galleries
 1. Create a new gallery with a custom name
 1. Add images in a gallery
@@ -58,8 +59,10 @@ As user (logged in)
 1. Display the profile of a user
 
 ### Initial planning
-The planning consist of 7 sprints where every sprint is 1 week long. (I'm not using Scrum, but I just use the concept of sprints as parts of the project).  
-The projects planning and tasks management is done with Github Issues and Github Projects. [This planning is also available here](https://github.com/samuelroland/galeriz/projects).
+The project starts the 01.02.2022 and finishes the 28.03.2022. The planning consist of 7 sprints where every sprint is 1 week long. (I'm not using Scrum, but I use the concept of sprints as parts of the project).  
+The projects planning and tasks management is done with Github Issues and Github Projects. [It is visible here](https://github.com/samuelroland/galeriz/projects).
+
+**Initial planning**:
 ![Planning](./img/planning.png)
 
 ## Analysis/Design
@@ -82,45 +85,50 @@ For the database I picked MySQL (as required) version 8. (TODO: check version)
 
 ### Available pages
 
-- All galleries: under menu section called `Panorama`
-- Gallery details: all pictures in the gallery and the name of the author
-- Author details: information about the author and a list of the associated categories
-- Create a gallery: Create a new gallery without any picture
-- Gallery edition: Manage gallery details (title and description), upload new images, manage titles, delete existing images and browse current ones.
+- **All galleries**: all galleries published on Galeriz
+- **My galleries**: galleries of the logged user
+- **Followed galleries**: galleries followed by the logged suer
+- **Create a gallery**: Create a new gallery without any picture
+- **Gallery details**: all pictures in the gallery and the name of the author
+- **Gallery edition**: Manage gallery details (title and description), upload new images, manage titles, delete existing images and browse current ones.
+- **Profile page**: profile of authors on Galeriz
 
+### Database
 #### MCD
 ![MCD](MCD.png)
 #### MLD
 ![MLD](MLD.png)
 
-#### Models
-##### Layout
+### Models
+In addition to pages listed above, we have the Layout, Login and Register models too. (This is mostly designed by Jetstream).
+
+#### Layout
 ![Layout model](models/Layout.png)
 
-##### Login
+#### Login
 ![Login](models/Login.png)
 
-##### Register
+#### Register
 ![Register](models/Register.png)
 
-##### All galleries
+#### All galleries
 ![salut](models/All_galleries.png)
 
-##### Create a gallery
+#### Create a gallery
 ![Create a gallery](models/Create_a_gallery.png)
 
-##### Gallery details
+#### Gallery details
 ![Gallery details](models/Gallery_details.png)
 
-##### Gallery edition
+#### Gallery edition
 Gallery title, images titles and descriptions are editable on double click (an input appears).
 ![Gallery edition](models/Gallery_edition.png)
 
 ### Tests
-This section concerns how Galeriz is tested manually and programmatically. Samuel tests during the development if the features are working in his browser. The main testing part is made with automated tests written with `phpunit` (a php testing framework).
+This section concerns how Galeriz is tested manually and programmatically. Samuel tests during the development in his browser. Most of the features and cases are tested with automated tests written with `phpunit` (a php testing framework).
 
 #### Where are these tests ?
-Everything is in the `tests` folder in the repository. 
+Everything is in the `tests` folder in the repository. The folder `Feature` contains all the feature tests. The folder `Unit` is not used because I didn't need to write unit tests.
 
 #### Prerequesite to run tests ?
 As defined in the `phpunit.xml`, tests are runned against an in memory sqlite database. Each tests seed the database again (TODO: verify).
