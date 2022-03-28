@@ -36,6 +36,7 @@ Galeriz is a galleries publishing web app. Authors can publish galleries of imag
   - [Appendix](#appendix)
     - [Pre-TPI summary](#pre-tpi-summary)
     - [Work diary](#work-diary)
+    - [Icons](#icons)
 
 ### Goals
 Implement the following features in a web application using PHP, Javascript and MySQL.
@@ -228,3 +229,6 @@ I wrote the diary in a separated file under [docs/WorkDiary.md](/docs/WorkDiary.
 5.5	Manuel d'Utilisation
 
 5.6	Archives du projet 
+
+### Icons
+All icons comes from [heroicons.com](https://heroicons.com/) and are licenced under MIT. I used them by copy paste.
