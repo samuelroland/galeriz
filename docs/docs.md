@@ -128,10 +128,22 @@ Gallery title, images titles and descriptions are editable on double click (an i
 This section concerns how Galeriz is tested manually and programmatically. Samuel tests during the development in his browser. Most of the features and cases are tested with automated tests written with `phpunit` (a php testing framework).
 
 #### Where are these tests ?
-Everything is in the `tests` folder in the repository. The folder `Feature` contains all the feature tests. The folder `Unit` is not used because I didn't need to write unit tests.
+Everything is in the `tests` folder in the repository. The folder `Feature` contains all the feature tests. The folder `Unit` is not used because I didn't need to write unit tests. The folder `Jetstream` contains all the tests written by Jetstream (I moved from `Feature` to `Jetstream` because I wanted to avoid to run them each time I run the test suite). I wrote **38** feature tests to cover most of the features, some tests are missing (for image upload for ex.), but in this case I tested by hand too.
+
+Here is the list of test classes:s
+```
+AllGalleriesTest.php     
+FollowedGalleriesTest.php
+GalleryCreationTest.php  
+GalleryDetailsTest.php   
+GalleryEditionTest.php   
+LayoutTest.php
+MyGalleriesTest.php      
+UploadImageTest.php   
+```
 
 #### Prerequesite to run tests ?
-As defined in the `phpunit.xml`, tests are runned against an in memory sqlite database. Each tests seed the database again (TODO: verify).
+`phpunit` is a binary CLI pulled by composer, so you need to have pulled composer packages (`composer install`). As defined in the `phpunit.xml`, tests are runned against an in memory sqlite database. Each tests seed the database again with the default seeder.
 
 This lines at the bottom of `phpunit.xml` (root of the repos), define 2 environment variables. (TODO)
 ```xml
@@ -140,6 +152,17 @@ This lines at the bottom of `phpunit.xml` (root of the repos), define 2 environm
 ```
 
 #### How to run tests ?
+There are different ways to run the tests:
+- `./vendor/bin/phpunit`
+- `php artisan test`
+
+You can pass argument to `phpunit` or after the `php artisan test` command. 
+
+- Example to execute only 1 test:  
+`php artisan test --filter my_galleries_page_exists`
+- Example to execute tests of a given class:  
+ `php artisan test tests/Feature/AllGalleriesTest.php`
+
 I recommend you to setup a shortcut in your IDE to run the tests. I used this keyboard shorcut setting in VSCode to run `php artisan test tests/Feature` on `ctrl+t ctrl+t`
 ```json
 {
