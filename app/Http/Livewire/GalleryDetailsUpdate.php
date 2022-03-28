@@ -18,6 +18,11 @@ class GalleryDetailsUpdate extends Component
         return view('livewire.gallery-details-update');
     }
 
+    public function updated($field)
+    {
+        $this->validateOnly($field);
+    }
+
     public function save()
     {
         $this->validate();
