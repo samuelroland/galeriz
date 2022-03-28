@@ -24,6 +24,11 @@ class UploadImage extends Component
         return view('livewire.upload-image');
     }
 
+    public function updated($field)
+    {
+        $this->validateOnly($field);
+    }
+
     public function save()
     {
         $data = $this->validate();
