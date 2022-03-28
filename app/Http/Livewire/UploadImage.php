@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Image;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 class UploadImage extends Component
 {
@@ -46,7 +47,7 @@ class UploadImage extends Component
         $image->save();
 
         //We can finally store the file with its name
-        $this->image->storeAs('public/images', $image->id . "." . $this->image->extension());
+        $this->image->storeAs('images', $image->id . "." . $this->image->extension(), 'public');
 
         //Reset the values of this component to the initial state
         $this->reset(['title', 'image']);
