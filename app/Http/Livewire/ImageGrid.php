@@ -23,23 +23,11 @@ class ImageGrid extends Component
     {
         $image = Image::find($id);
 
-        //Check if the image is present in the gallery
-        if ($this->gallery->images->contains($image)) {
+        if ($image->canBeDeletedIn($this->gallery)) {
+            $image->delete();
 
-            //Check if the gallery is owned by the user
-            if ($this->gallery->author->is(auth()->user())) {
-
-                //Before final deletion, we need to remove the cover image if this image is the cover
-                if ($this->gallery->cover?->is($image)) {
-                    $this->gallery->cover_id = null;
-                    $this->gallery->save();
-                }
-
-                $image->delete();
-
-                //Make sure to refresh the content of $gallery to see the updated images list on the view
-                $this->gallery->refresh();
-            }
+            //Make sure to refresh the content of $gallery to see the updated images list on the view
+            $this->gallery->refresh();
         }
     }
 }
