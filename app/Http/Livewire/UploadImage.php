@@ -5,7 +5,6 @@ namespace App\Http\Livewire;
 use App\Models\Image;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\Storage;
 
 class UploadImage extends Component
 {
@@ -30,6 +29,7 @@ class UploadImage extends Component
         $this->validateOnly($field);
     }
 
+    //Save the new image with given title and file
     public function save()
     {
         $data = $this->validate();

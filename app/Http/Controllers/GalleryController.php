@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Gallery;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class GalleryController extends Controller
@@ -41,11 +39,7 @@ class GalleryController extends Controller
     //List all galleries. The galleries can be given to have a filtered list.
     public function index($galleries = null)
     {
-        if ($galleries == null) {
-            $galleries = Gallery::all();
-        }
-
-        return view('galleries.index', ['galleries' => $galleries]);
+        return view('galleries.index', ['galleries' => $galleries ?? Gallery::all()]);
     }
 
     public function show(Gallery $gallery)

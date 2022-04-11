@@ -23,7 +23,7 @@ class Gallery extends Model
 
     public function cover()
     {
-        return $this->belongsTo(Image::class, 'cover_id');
+        return $this->belongsTo(Image::class);
     }
 
     public function author()

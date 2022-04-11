@@ -22,6 +22,7 @@ class ImageGrid extends Component
     public function delete($id)
     {
         $image = Image::find($id);
+
         //Check if the image is present in the gallery
         if ($this->gallery->images->contains($image)) {
 
