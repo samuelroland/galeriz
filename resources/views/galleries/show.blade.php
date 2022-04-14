@@ -1,8 +1,8 @@
 <x-app-layout>
     <div class="my-3 flex">
         <h1 class="text-3xl flex-1">Gallery details</h1>
-        @if($gallery->author()->is(Auth::user()))
-        <a href=" {{ route("galleries.update", ["gallery"=> $gallery->id])}}"><button class="btn">Edit gallery</button></a>
+        @if($gallery->author()->is(auth()->user()))
+        <a href=" {{ route("galleries.update", $gallery) }}"><button class="btn">Edit gallery</button></a>
         @endif
     </div>
     <hr>

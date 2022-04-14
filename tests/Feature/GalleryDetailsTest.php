@@ -34,7 +34,7 @@ class GalleryDetailsTest extends TestCase
         $user = User::factory()->create();
         $gallery = Gallery::factory()->create(['user_id' => $user->id]);
 
-        $response = $this->get(route('galleries.show', ['gallery' => $gallery->id]));
+        $response = $this->get(route('galleries.show', $gallery));
 
         $response->assertSeeText([$gallery->title, $gallery->description, $gallery->author->name]);
     }
@@ -43,7 +43,7 @@ class GalleryDetailsTest extends TestCase
     {
         $gallery = Gallery::factory()->create(['user_id' => User::first()->id]);
         $images = Image::factory(3)->create(['gallery_id' => $gallery->id]);
-        $visitor = $this->get(route('galleries.show', ['gallery' => $gallery->id]));
+        $visitor = $this->get(route('galleries.show', $gallery));
 
         $gallery->images->each(
             function ($image) use ($visitor) {
@@ -56,7 +56,7 @@ class GalleryDetailsTest extends TestCase
     public function test_a_message_is_displayed_when_there_is_no_image()
     {
         $gallery = Gallery::factory()->create(['user_id' => User::first()->id]);
-        $response = $this->get(route('galleries.show', ['gallery' => $gallery->id]));
+        $response = $this->get(route('galleries.show', $gallery));
 
         $response->assertSee("There is no image in this gallery...");
     }

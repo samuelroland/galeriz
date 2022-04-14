@@ -25,7 +25,7 @@ class GalleryEditionTest extends TestCase
         $author = User::first();
         $gallery = $author->galleries()->first();
 
-        $response = $this->actingAs($author)->get(route('galleries.update', ['gallery' => $gallery->id]));
+        $response = $this->actingAs($author)->get(route('galleries.update', $gallery));
 
         $response->assertStatus(200);
     }
@@ -34,7 +34,7 @@ class GalleryEditionTest extends TestCase
     {
         $gallery = User::first()->galleries()->first();
 
-        $response = $this->get(route('galleries.update', ['gallery' => $gallery->id]));
+        $response = $this->get(route('galleries.update', $gallery));
 
         $response->assertRedirect(route('login'));
     }
@@ -45,9 +45,9 @@ class GalleryEditionTest extends TestCase
         $gallery = $author->galleries()->first();
         $anotherAuthor = User::whereEmail('sam@sam.com')->first();
 
-        $response = $this->actingAs($anotherAuthor)->get(route('galleries.update', ['gallery' => $gallery->id]));
+        $response = $this->actingAs($anotherAuthor)->get(route('galleries.update', $gallery));
 
-        $response->assertRedirect(route('galleries.show', ['gallery' => $gallery->id]));
+        $response->assertRedirect(route('galleries.show', $gallery));
     }
 
     public function test_edit_button_is_not_visible_if_user_is_not_the_gallery_owner()
@@ -56,7 +56,7 @@ class GalleryEditionTest extends TestCase
         $gallery = $author->galleries()->first();
         $anotherAuthor = User::whereEmail('sam@sam.com')->first();
 
-        $response = $this->actingAs($anotherAuthor)->get(route('galleries.show', ['gallery' => $gallery->id]));
+        $response = $this->actingAs($anotherAuthor)->get(route('galleries.show', $gallery));
 
         $response->assertDontSee("Edit gallery");
     }
@@ -65,7 +65,7 @@ class GalleryEditionTest extends TestCase
     {
         $gallery = Gallery::first();
 
-        $response = $this->actingAs($gallery->author)->get(route('galleries.update', ['gallery' => $gallery->id]));
+        $response = $this->actingAs($gallery->author)->get(route('galleries.update', $gallery));
 
         $response->assertSeeLivewire('gallery-details-update');
         $response->assertSeeLivewire('image-grid');
@@ -118,7 +118,7 @@ class GalleryEditionTest extends TestCase
     {
         $author = User::first();
         $gallery = Gallery::factory()->create(['user_id' => $author->id]);
-        $response = $this->actingAs($author)->get(route('galleries.update', ['gallery' => $gallery->id]));
+        $response = $this->actingAs($author)->get(route('galleries.update', $gallery));
 
         $response->assertSee("There is no image in this gallery...");
     }

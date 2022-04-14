@@ -18,7 +18,7 @@ class GalleryController extends Controller
         $gallery['user_id'] = Auth::user()->id;
 
         $gallery = Gallery::create($gallery);
-        return redirect(route('galleries.show', ['gallery' => $gallery->id]));
+        return redirect(route('galleries.show', $gallery));
     }
 
     public function create()
