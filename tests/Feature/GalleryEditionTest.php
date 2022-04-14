@@ -18,7 +18,7 @@ class GalleryEditionTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $seed = true; //seed the database at each run
+
 
     public function test_gallery_edition_page_exists()
     {

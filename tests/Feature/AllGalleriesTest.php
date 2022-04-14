@@ -14,8 +14,6 @@ class AllGalleriesTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $seed = true; //seed the database at each run
-
     //Gallery pages tests
     public function test_galleries_page_exists()
     {

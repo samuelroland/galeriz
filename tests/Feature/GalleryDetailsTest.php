@@ -15,7 +15,7 @@ class GalleryDetailsTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $seed = true; //seed the database at each run
+
 
     public function test_gallery_details_page_without_id_redirects_to_panorama()
     {

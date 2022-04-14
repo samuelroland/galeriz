@@ -14,7 +14,7 @@ class FollowedGalleriesTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $seed = true; //seed the database at each run
+
 
     public function test_followed_galleries_page_exists()
     {
