@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Image;
 use App\Models\Gallery;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -50,30 +51,6 @@ class GalleryDetailsTest extends TestCase
                 $visitor->assertSee($image->title);
             }
         );
-    }
-
-    public function test_an_image_without_file_on_disk_has_default_not_found_image()
-    {
-        $gallery = Gallery::factory()->create(['user_id' => User::first()->id]);
-        $image = Image::factory()->create(['gallery_id' => $gallery->id]);
-        $image->path = "wrong path";
-        $image->save();
-
-        $response = $this->get(route('galleries.show', ['gallery' => $gallery->id]));
-
-        $response->assertSee("image-not-found.png");
-    }
-
-    public function test_an_image_with_empty_path_has_default_not_found_image()
-    {
-        $gallery = Gallery::factory()->create(['user_id' => User::first()->id]);
-        $image = Image::factory()->create(['gallery_id' => $gallery->id]);
-        $image->path = "";
-        $image->save();
-
-        $response = $this->get(route('galleries.show', ['gallery' => $gallery->id]));
-
-        $response->assertSee("image-not-found.png");
     }
 
     public function test_a_message_is_displayed_when_there_is_no_image()

@@ -39,15 +39,10 @@ class UploadImage extends Component
         $image = new Image;
         $image->title = $this->title;
         $image->gallery_id = $this->gallery->id;
-        $image->path = "tbd";
-        $image->save();
-
-        //When we have the id we can choose the path
-        $image->path = "images/" . $image->id . "." . $this->image->extension();
         $image->save();
 
         //We can finally store the file with its name
-        $this->image->storeAs('images', $image->id . "." . $this->image->extension(), 'public');
+        $this->image->storeAs('images', $image->id, 'local');
 
         //Reset the values of this component to the initial state
         $this->reset(['title', 'image']);

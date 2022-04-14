@@ -128,12 +128,12 @@ class GalleryEditionTest extends TestCase
         $image = Image::first();
         $gallery = $image->gallery;
         $this->actingAs($gallery->author);
-
+        $path = $image->path;
         Livewire::test(ImageGrid::class, ['gallery' => $gallery])
             ->call('delete', $image->id);
 
         $this->assertModelMissing($image);
-        $this->assertFalse(Storage::disk('public')->exists($image->path));
+        $this->assertFalse(Storage::disk('local')->exists($path));
     }
 
     public function test_image_is_not_deleted_if_is_not_in_the_current_gallery()

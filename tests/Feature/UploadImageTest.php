@@ -21,7 +21,7 @@ class UploadImageTest extends TestCase
     {
         $gallery = Gallery::first();
         $user = $gallery->author;
-        Storage::fake('public');
+        Storage::fake('local');
         $file = UploadedFile::fake()->image('nice picture.png');
 
         Livewire::actingAs($user)
@@ -33,6 +33,6 @@ class UploadImageTest extends TestCase
 
         $createdImage = Image::whereTitle('My holiday')->first();
         $this->assertNotNull($createdImage);
-        Storage::disk('public')->assertExists($createdImage->path);
+        Storage::disk('local')->assertExists($createdImage->path);
     }
 }

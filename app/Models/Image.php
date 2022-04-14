@@ -15,16 +15,13 @@ class Image extends Model
     public function getSafePathAttribute()
     {
         $defaultImagePath = "image-not-found.png";
+        $path = "images/" . $this->id;
+        return Storage::disk('local')->exists($path) ? $path : $defaultImagePath;
+    }
 
-        if (trim($this->path) == "") {
-            return $defaultImagePath;
-        }
-
-        if (Storage::disk('public')->exists($this->path)) {
-            return $this->path;
-        } else {
-            return $defaultImagePath;
-        }
+    public function getPathAttribute()
+    {
+        return "images/" . $this->id;
     }
 
     public function gallery()
@@ -45,7 +42,7 @@ class Image extends Model
         parent::delete();
 
         //and delete the file too
-        Storage::disk('public')->delete($this->path);
+        Storage::disk('local')->delete($this->path);
     }
 
     public function canBeDeletedIn(Gallery $gallery)
