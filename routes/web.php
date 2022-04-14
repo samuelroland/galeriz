@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\ImageController;
 
 //Routes for galleries
 Route::controller(GalleryController::class)->group(function () {
@@ -20,6 +21,8 @@ Route::controller(GalleryController::class)->group(function () {
     Route::get('/', 'index')->name("galleries.index");
     Route::get('/galleries/{gallery}', 'show')->name("galleries.show");
 });
+
+Route::resource('images', ImageController::class, ['only' => 'show']);
 
 //Redirections and others
 Route::get('/galleries', function () {

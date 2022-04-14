@@ -11,7 +11,7 @@
 
             @if($edit)
             <div class="relative" x-data="{confirmed: false}">
-                <img class="w-full h-72 object-cover block " src="/{{ $image->safePath }}" alt="">
+                <img class="w-full h-72 object-cover block " src="{{ route('images.show', $image) }}" alt="">
                 <div class="absolute bottom-0 right-0 cursor-pointer m-2 p-1" :class="{'bg-red-200 hover:bg-red-300': !confirmed, 'bg-red-500 hover:bg-red-600': confirmed}" @click="confirmed ? $wire.delete({{ $image->id }}) : confirmed = true" @click.away="confirmed = false">
                     <div x-cloak>
                         {{-- Trash icon --}}
@@ -26,7 +26,7 @@
             </div>
 
             @else
-            <img class="w-full h-72 object-cover block " src="/{{ $image->safePath }}" alt="">
+            <img class="w-full h-72 object-cover block " src="{{ route('images.show', $image) }}" alt="">
             <div class="whitespace-nowrap overflow-hidden text-ellipsis max-w-xs mx-2">
                 {{ $image->title }}
             </div>
