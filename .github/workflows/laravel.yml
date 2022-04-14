@@ -21,11 +21,8 @@ jobs:
     - name: Install Dependencies
       run: |
         composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-        npm install
     - name: Generate key
       run: php artisan key:generate
-    - name: Generate JS and CSS files
-      run: npm run dev
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap/cache
     - name: Create Database
