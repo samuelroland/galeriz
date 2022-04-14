@@ -27,7 +27,7 @@
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
-                @if (Auth::user() != null)
+                @if (auth()->check())
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                 <div class="ml-3 relative">

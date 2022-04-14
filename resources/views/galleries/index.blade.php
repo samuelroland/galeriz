@@ -1,23 +1,3 @@
-@php
-switch(Route::currentRouteName()) {
-case "galleries.index":
-$title = "Panorama";
-$description = "Panorama of all galleries published on Galeriz.";
-break;
-case "my":
-$title = "My galleries";
-$description = "Here are all the galleries you published on Galeriz.";
-break;
-case "followedGalleries":
-$title = "Followed galleries";
-$description = "Here are all the galleries you follow on Galeriz.";
-break;
-default:
-$title = "No title";
-$description = "no description";
-}
-@endphp
-
 <x-app-layout>
     <div class="my-3">
         <h1 class="text-3xl">

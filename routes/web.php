@@ -18,7 +18,7 @@ Route::controller(GalleryController::class)->group(function () {
     });
 
     //Public routes
-    Route::get('/', 'index')->name("galleries.index");
+    Route::get('/', 'panorama')->name("galleries.index");   //todo rename route
     Route::get('/galleries/{gallery}', 'show')->name("galleries.show");
 });
 

@@ -28,18 +28,23 @@ class GalleryController extends Controller
 
     public function myGalleries()
     {
-        return $this->index(Auth::user()->galleries);
+        return $this->index(Auth::user()->galleries, "My galleries", "Here are all the galleries you published on Galeriz.");
     }
 
     public function followedGalleries()
     {
-        return $this->index(Auth::user()->followedGalleries);
+        return $this->index(Auth::user()->followedGalleries, "Followed galleries",  "Here are all the galleries you follow on Galeriz.");
+    }
+
+    public function panorama()
+    {
+        return $this->index(Gallery::all(), "Panorama", "Panorama of all galleries published on Galeriz.");
     }
 
     //List all galleries. The galleries can be given to have a filtered list.
-    public function index($galleries = null)
+    protected function index($galleries, $title, $description)
     {
-        return view('galleries.index', ['galleries' => $galleries ?? Gallery::all()]);
+        return view('galleries.index', ['galleries' => $galleries, 'title' => $title, 'description' => $description]);
     }
 
     public function show(Gallery $gallery)
